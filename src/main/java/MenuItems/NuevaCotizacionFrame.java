@@ -1929,7 +1929,10 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                     newModel2.addElement(rs2.getString("Nombre"));
                 }
                 while (rs3.next()){
-                    textBox2.setText(rs3.getString("numero"));
+                    int cotNum = Integer.parseInt(rs3.getString("numero"));
+                    int incrementoCotNum = cotNum + 1;
+                    //textBox2.setText(rs3.getString("numero"));
+                    textBox2.setText(String.valueOf(incrementoCotNum));
                 }
                 while (rs4.next()){
                     txtFecha.setText(rs4.getString("fecha"));

@@ -61,7 +61,7 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         dgvcoti = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnVerEditar = new javax.swing.JButton();
         btnActivar = new javax.swing.JButton();
         btnInactivar = new javax.swing.JButton();
 
@@ -265,8 +265,13 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
             dgvcoti.getColumnModel().getColumn(3).setPreferredWidth(8);
         }
 
-        jButton1.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        jButton1.setText("Ver / Editar");
+        btnVerEditar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnVerEditar.setText("Ver / Editar");
+        btnVerEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerEditarActionPerformed(evt);
+            }
+        });
 
         btnActivar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         btnActivar.setText("Reactivar");
@@ -298,7 +303,7 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnVerEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnActivar)
                         .addGap(59, 59, 59)
@@ -316,7 +321,7 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnVerEditar)
                     .addComponent(btnActivar)
                     .addComponent(btnInactivar))
                 .addGap(48, 48, 48))
@@ -523,6 +528,11 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
             cbvendedor.setEnabled(false);
     }//GEN-LAST:event_rbVendedorItemStateChanged
 
+    private void btnVerEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerEditarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnVerEditarActionPerformed
+
     private void cargarDatos(){
         
         PreparedStatement ps, ps1, ps2;
@@ -603,13 +613,13 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActivar;
     private javax.swing.JButton btnInactivar;
+    private javax.swing.JButton btnVerEditar;
     private javax.swing.JButton btnfiltrar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbcliente;
     private javax.swing.JComboBox<String> cbetapa;
     private javax.swing.JComboBox<String> cbvendedor;
     private javax.swing.JTable dgvcoti;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
