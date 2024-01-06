@@ -23,6 +23,7 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
 
     private static Connection con;
     private static Conexion conexion;
+    public static int Num_cot = 0;
     
     public ListadoCotizacionFrame() {
         initComponents();
@@ -530,7 +531,16 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
 
     private void btnVerEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerEditarActionPerformed
         // TODO add your handling code here:
-        
+        int selectedRow = dgvcoti.getSelectedRow();
+        if(selectedRow != -1){
+            int valor = Integer.parseInt(dgvcoti.getValueAt(selectedRow, 0).toString());
+            Num_cot = valor;
+            ModificarCotizacionFrame mcf = new ModificarCotizacionFrame();
+            mcf.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Seleccione una cotización para modificar");
+        }
     }//GEN-LAST:event_btnVerEditarActionPerformed
 
     private void cargarDatos(){

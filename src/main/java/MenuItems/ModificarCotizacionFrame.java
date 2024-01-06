@@ -31,15 +31,17 @@ import javax.swing.table.*;
  *
  * @author Asus
  */
-public class NuevaCotizacionFrame extends javax.swing.JFrame {
+public class ModificarCotizacionFrame extends javax.swing.JFrame {
 
     private static Connection con;
     private static Conexion conexion;
     private int changedRow = 0;
     public boolean simil = true;  //para ver si da mil
     
+    private String idNumCot = String.valueOf(ListadoCotizacionFrame.Num_cot);
+    
     int xMouse, yMouse;
-    public NuevaCotizacionFrame() {
+    public ModificarCotizacionFrame() {
         initComponents();
         setLocationRelativeTo(null);
         setLocation(getX(), 75);
@@ -167,7 +169,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(900, 900));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Nueva Cotización");
+        jLabel1.setText("Cotización");
 
         JPanelDatosGenerales.setBackground(new java.awt.Color(252, 252, 252));
         JPanelDatosGenerales.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1436,12 +1438,12 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                     txt_volumen.setBackground(Color.RED);
 
                     //AQUÍ LE CAMBIÉ, ERAN 271 EN LOS DOS DE 450
-                    for(int i = 271; i >= 1; i = i - 10)
+                    for(int i = 450; i >= 1; i = i - 10)
                     {
                         BigDecimal batch = new BigDecimal("1000.00").divide(BigDecimal.valueOf(i), RoundingMode.HALF_UP);
                         BigDecimal batch2 = new BigDecimal("1000.00").divide(BigDecimal.valueOf(i - 10), RoundingMode.HALF_UP);
 
-                        if(i == 271)
+                        if(i == 450)
                         {
                             if (vol.compareTo(BigDecimal.ZERO) > 0 && vol.compareTo(batch) <= 0){
                                 txt_tamaño.setText(Integer.toString(i));
@@ -1467,7 +1469,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                     txt_volumen.setOpaque(true);
                     txt_volumen.setBackground(Color.LIGHT_GRAY);
                     //AQUÍ TAMBIÉN LE CAMBIÉ, DECÍA 271
-                    txt_tamaño.setText("271");
+                    txt_tamaño.setText("450");
                 }
                 BigDecimal batch = new BigDecimal(txt_batch.getText());
                 BigDecimal tamaño = new BigDecimal(txt_tamaño.getText());
@@ -1692,7 +1694,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             }
             else if(cbpart3.equals("$"))
             {
-                parti = new BigDecimal(tbParticipacion.getText()).divide(new BigDecimal(tbTipodeCambio.getText()),scale,roundingMode);
+                parti = new BigDecimal(tbParticipacion.getText()).divide(new BigDecimal(tbTipodeCambio.getText()));
                 lblParticipacion.setText(parti.toString());
                 totaltotal = parti.add(subtotal);
                 lblTotal.setText(totaltotal.toString());
@@ -1896,23 +1898,26 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
 
     private void cargarDatos(){
         
-        PreparedStatement ps, ps1, ps2, ps3, ps4;
-        ResultSet rs, rs1, rs2, rs3, rs4;
+        PreparedStatement ps, ps1, ps2, ps3, ps4, ps5;
+        ResultSet rs, rs1, rs2, rs3, rs4, rs5;
 
         try {
             con = conexion.establecerConexion();
 
             if (cbcliente != null) {
-                ps = con.prepareStatement("SELECT * FROM Clientes WHERE Activo=1 ORDER BY Nombre ASC");
-                ps1 = con.prepareStatement("SELECT * FROM Etapa WHERE Activo=1 ORDER BY Nombre ASC");
+                ps = con.prepareStatement("SELECT * FROM Clientes ORDER BY Nombre ASC");
+                ps1 = con.prepareStatement("SELECT * FROM Etapa ORDER BY Nombre ASC");
                 ps2 = con.prepareStatement("SELECT * FROM MP WHERE Activo=1 ORDER BY Nombre ASC");
-                ps3 = con.prepareStatement("select top 1 Id_Cotizacion as numero from Cotizacion order by Id_Cotizacion Desc");
-                ps4 = con.prepareStatement("select CONVERT(varchar,GETDATE(),111) as fecha");
+                ps3 = con.prepareStatement("select Id_Cotizacion as numero from Cotizacion WHERE Id_Cotizacion= "+idNumCot);
+                //ps4 = con.prepareStatement("select CONVERT(varchar,GETDATE(),111) as fecha");
+                ps4 = con.prepareStatement("select Fecha FROM Cotizacion WHERE Id_Cotizacion= "+idNumCot);
+                ps5 = con.prepareStatement("select Cotizacion.Id_Saco as saco,Cotizacion.Descripcion as observ,Cotizacion.Participacion as parti,Cotizacion.Tipo_part as tp,Cotizacion.Gramos_vaca as gramos,Cotizacion.Tipo_cambio as tipoc,Cotizacion.Flete as flete,Cotizacion.Tarima as tarima,Cotizacion.Mezclado as mezc,Cotizacion.Precio_batch as pbatch,Clientes.Nombre as ncliente,Etapa.Nombre as netapa, Cotizacion.Fecha as Fecha, Cotizacion.Vendedor as Vend from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Id_Cotizacion = " + idNumCot + "");
                 rs = ps.executeQuery();               
                 rs1 = ps1.executeQuery();              
                 rs2 = ps2.executeQuery();
                 rs3 = ps3.executeQuery();
                 rs4 = ps4.executeQuery();
+                rs5 = ps5.executeQuery();
 
                 // Create a new DefaultComboBoxModel to replace the existing one
                 DefaultComboBoxModel<String> newModel = new DefaultComboBoxModel<>();
@@ -1930,24 +1935,122 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 }
                 while (rs3.next()){
                     int cotNum = Integer.parseInt(rs3.getString("numero"));
-                    int incrementoCotNum = cotNum + 1;
                     //textBox2.setText(rs3.getString("numero"));
-                    textBox2.setText(String.valueOf(incrementoCotNum));
+                    textBox2.setText(String.valueOf(cotNum));
                 }
                 while (rs4.next()){
                     txtFecha.setText(rs4.getString("fecha"));
                 }
-
+                
                 // Set the new model to the JComboBox
                 cbcliente.setModel(newModel);
                 cbetapa.setModel(newMode11);
                 cbMatPrim.setModel(newModel2);
+                int saco = 0;
+                
+                //ESCOGEMOS LOS DATOS DEPENDIENDO DE LA COTIZACION SELECCIONADA
+                while (rs5.next()){
+                    cbcliente.setSelectedItem(rs5.getString("ncliente"));
+                    cbetapa.setSelectedItem(rs5.getString("netapa"));
+                    tbPrecioBatchExtra.setText(rs5.getString("pbatch"));
+                    tbMezclado.setText(rs5.getString("mezc"));
+                    tbTarima.setText(rs5.getString("tarima"));
+                    tbFlete.setText(rs5.getString("Flete"));
+                    tbTipodeCambio.setText(rs5.getString("tipoc"));
+                    tbGramosPVaca.setText(rs5.getString("gramos"));
+                    cbpart.setSelectedItem(rs5.getString("tp"));
+                    tbParticipacion.setText(rs5.getString("parti"));
+                    textBox3.setText(rs5.getString("observ"));
+                    tbVendedor.setText(rs5.getString("Vend"));
+                    saco = rs5.getInt("saco");
+                }
 
                 rs.close();
                 rs1.close();
                 rs2.close();
                 rs3.close();
                 rs4.close();
+                rs5.close();
+                
+                if (saco == 1)
+                {
+                    chksuper.setSelected(true); chkinter.setSelected(true);
+                }
+                else if (saco == 2)
+                {
+                    chk20.setSelected(true); chkinter.setSelected(true);
+                }
+                else if (saco == 3)
+                {
+                    chk30.setSelected(true); chkinter.setSelected(true);
+                }
+                else if (saco == 4)
+                {
+                    chksuper.setSelected(true); chkterceria.setSelected(true);
+                }
+                else if (saco == 5)
+                {
+                    chk20.setSelected(true); chkterceria.setSelected(true);
+                }
+                else if (saco == 6)
+                {
+                    chk30.setSelected(true); chkterceria.setSelected(true);
+                }
+                
+                //PARA AGREGAR LA TABLA DE MATERIAS PRIMAS
+                PreparedStatement ps6;
+                ResultSet rs6;
+                
+                ps6 = con.prepareStatement("select MP.N_Parte as N_Parte, MP.Nombre as Nombre, MP.Precio as Precio, MP.Moneda as Moneda, MP.Densidad as Densidad, MP.Id_Mp as Id_Mp, Detalle_Cotizacion.Cantidad as Cantidad from Detalle_Cotizacion inner join MP on Detalle_Cotizacion.Id_Mp = MP.Id_Mp where Id_Cotizacion =" + idNumCot);
+                rs6 = ps6.executeQuery();
+                int scale = 10;
+                RoundingMode roundingMode = RoundingMode.HALF_UP;
+                
+                while(rs6.next()){
+                    BigDecimal total = BigDecimal.ZERO;
+                    BigDecimal roundedTotal = BigDecimal.ZERO;
+                    BigDecimal tCambio = new BigDecimal(tbTipodeCambio.getText());
+                    BigDecimal cantidad = new BigDecimal(rs6.getString("Cantidad"));
+                    BigDecimal precio = new BigDecimal(rs6.getString("Precio"));
+                    if(rs6.getString("Moneda").equals("MN")){
+                        total = (cantidad.multiply(precio)).divide(tCambio,scale,roundingMode);
+                        roundedTotal = total.setScale(2, RoundingMode.HALF_UP);
+                    }
+                    else{
+                        total = (cantidad.multiply(precio));
+                        roundedTotal = total.setScale(2, RoundingMode.HALF_UP);
+                    }
+                    DefaultTableModel model = (DefaultTableModel) dgvCalculoBatch.getModel();
+
+                    // Assuming dr is a ResultSet
+                    Object[] rowData = {
+                        rs6.getObject("Id_Mp"),
+                        rs6.getObject("Nombre"),
+                        rs6.getObject("Cantidad"),
+                        rs6.getObject("Precio"),
+                        rs6.getObject("Moneda"),
+                        roundedTotal.toString(),
+                        //tCambio.toString(),
+                        rs6.getObject("Densidad"),
+                        "",
+                        rs6.getObject("Id_Mp")
+                    };
+
+                    model.addRow(rowData);
+                }
+                
+                //SACAMOS LA UTILIDAD HACIENDO DE REVERSA LA FÓRMULA, TENEMOS QUE AGREGAR LOS INGREDIENTES YA QUE ESOS SALEN POR EL CÁLCULO DE
+                //LAS MATERIAS PRIMAS DE LA TABLA
+                double mezcladoRev = Double.parseDouble(tbMezclado.getText());
+                double tipoCambioRev = Double.parseDouble(tbTipodeCambio.getText());
+                double division1 = mezcladoRev / tipoCambioRev;
+                
+                double ingredientesRev = Double.parseDouble(lblIngredientes.getText());
+                double suma1 = division1 + ingredientesRev;
+                
+                double division2 = ingredientesRev / suma1;
+                tbUtilidadDeseada.setText(String.valueOf(division2));
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Error: cbcot is null");
             }
@@ -2006,20 +2109,21 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NuevaCotizacionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarCotizacionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NuevaCotizacionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarCotizacionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NuevaCotizacionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarCotizacionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NuevaCotizacionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarCotizacionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NuevaCotizacionFrame().setVisible(true);
+                new ModificarCotizacionFrame().setVisible(true);
             }
         });
     }
