@@ -1347,6 +1347,7 @@
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tbTipodeCambioFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tbTipodeCambioFocusLost"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tbTipodeCambioActionPerformed"/>
               </Events>
             </Component>
@@ -1772,7 +1773,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI Light" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Utilidad deseada"/>
+                <Property name="text" type="java.lang.String" value="Divisor deseado"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="tbUtilidadDeseada">

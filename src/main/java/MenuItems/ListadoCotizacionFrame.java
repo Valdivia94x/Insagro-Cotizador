@@ -58,8 +58,11 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         rbInactivas = new javax.swing.JRadioButton();
         rbVendedor = new javax.swing.JRadioButton();
         rbCliente = new javax.swing.JRadioButton();
+        rbAno = new javax.swing.JRadioButton();
         cbvendedor = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        cbano = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         dgvcoti = new javax.swing.JTable();
         btnVerEditar = new javax.swing.JButton();
@@ -147,24 +150,35 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
             }
         });
 
+        rbAno.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        rbAno.setText("Año");
+        rbAno.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbAnoItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(rbActivas)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(rbInactivas)
-                .addContainerGap(48, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(rbCliente)
-                .addGap(18, 18, 18)
-                .addComponent(rbEtapa)
-                .addGap(18, 18, 18)
-                .addComponent(rbVendedor)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(rbActivas)
+                        .addGap(42, 42, 42)
+                        .addComponent(rbInactivas))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(rbCliente)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbEtapa)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbVendedor)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbAno)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +191,8 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbEtapa)
                     .addComponent(rbVendedor)
-                    .addComponent(rbCliente))
+                    .addComponent(rbCliente)
+                    .addComponent(rbAno))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -187,45 +202,61 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel5.setText("Vendedor");
 
+        cbano.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        cbano.setEnabled(false);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        jLabel6.setText("Año");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(469, 469, 469)
-                .addComponent(btnfiltrar)
-                .addContainerGap(500, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(cbcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(82, 82, 82)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(cbetapa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5)))
+                        .addComponent(cbetapa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
-                .addComponent(cbvendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbvendedor, 0, 200, Short.MAX_VALUE)
+                    .addComponent(cbano, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(52, 52, 52))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(468, 468, 468)
+                .addComponent(btnfiltrar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(26, 26, 26))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)))
-                .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel2)))
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
@@ -233,9 +264,9 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
                     .addComponent(cbetapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbvendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(btnfiltrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
         dgvcoti.setModel(new javax.swing.table.DefaultTableModel(
@@ -318,8 +349,8 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVerEditar)
@@ -364,9 +395,23 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         String nombreEt = nombre2.toString();
         Object nombre3 = cbvendedor.getSelectedItem();
         String nombreVe = nombre3.toString();
+        Object nombre4 = cbano.getSelectedItem();
+        String nombreFecha = nombre4.toString();
         //---ACTIVAS---
-        if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected()){
+        if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected()){
             codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbVendedor.isSelected() && rbActivas.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbCliente.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected()){
             codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
@@ -377,6 +422,15 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected()){
             codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
+        else if(rbCliente.isSelected() && rbAno.isSelected() && rbActivas.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEtapa.isSelected() && rbAno.isSelected() && rbActivas.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Etapa.Nombre='"+ nombreEt+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbVendedor.isSelected() && rbAno.isSelected() && rbActivas.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Cotizacion.Vendedor='"+ nombreVe+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
         else if(rbCliente.isSelected() && rbActivas.isSelected()){
             codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' order by Cotizacion.Id_Cotizacion Desc";
         }else if(rbEtapa.isSelected() && rbActivas.isSelected()){
@@ -385,12 +439,28 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         else if(rbVendedor.isSelected() && rbActivas.isSelected()){
             codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Cotizacion.Vendedor='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
+        else if(rbAno.isSelected() && rbActivas.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
         else if(rbActivas.isSelected()){
             codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 order by Cotizacion.Id_Cotizacion Desc";
         }
+        
         //---INACTIVAS---
-        if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected()){
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected()){
             codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbVendedor.isSelected() && rbInactivas.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEtapa.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbCliente.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected()){
             codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
@@ -401,6 +471,15 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected()){
             codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
+        else if(rbCliente.isSelected() && rbAno.isSelected() && rbInactivas.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEtapa.isSelected() && rbAno.isSelected() && rbInactivas.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND Etapa.Nombre='"+ nombreEt+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbVendedor.isSelected() && rbAno.isSelected() && rbInactivas.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND Cotizacion.Vendedor='"+ nombreVe+ "' AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
         else if(rbCliente.isSelected() && rbInactivas.isSelected()){
             codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' order by Cotizacion.Id_Cotizacion Desc";
         }else if(rbEtapa.isSelected() && rbInactivas.isSelected()){
@@ -408,6 +487,9 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         }
         else if(rbVendedor.isSelected() && rbInactivas.isSelected()){
             codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND Cotizacion.Vendedor='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbAno.isSelected() && rbInactivas.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 AND LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbInactivas.isSelected()){
             codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 0 order by Cotizacion.Id_Cotizacion Desc";
@@ -543,10 +625,18 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVerEditarActionPerformed
 
+    private void rbAnoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbAnoItemStateChanged
+        // TODO add your handling code here:
+        if(rbAno.isSelected())
+            cbano.setEnabled(true);
+        else
+            cbano.setEnabled(false);
+    }//GEN-LAST:event_rbAnoItemStateChanged
+
     private void cargarDatos(){
         
-        PreparedStatement ps, ps1, ps2;
-        ResultSet rs, rs1, rs2;
+        PreparedStatement ps, ps1, ps2, ps3;
+        ResultSet rs, rs1, rs2, rs3;
          try {
             con = conexion.establecerConexion();
 
@@ -554,14 +644,17 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
                 ps = con.prepareStatement("SELECT * FROM Clientes ORDER BY Nombre ASC");
                 ps1 = con.prepareStatement("SELECT * FROM Etapa ORDER BY Nombre ASC");
                 ps2 = con.prepareStatement("SELECT DISTINCT Vendedor FROM Cotizacion WHERE Vendedor IS NOT NULL ORDER BY Vendedor ASC");
+                ps3 = con.prepareStatement("SELECT DISTINCT LEFT(Fecha,4) AS ShortFecha FROM Cotizacion ORDER BY ShortFecha ASC");
                 rs = ps.executeQuery();               
                 rs1 = ps1.executeQuery();       
                 rs2 = ps2.executeQuery();
+                rs3 = ps3.executeQuery();
 
                 // Create a new DefaultComboBoxModel to replace the existing one
                 DefaultComboBoxModel<String> newModel = new DefaultComboBoxModel<>();
                 DefaultComboBoxModel<String> newMode11 = new DefaultComboBoxModel<>();
                 DefaultComboBoxModel<String> newMode12 = new DefaultComboBoxModel<>();
+                DefaultComboBoxModel<String> newMode13 = new DefaultComboBoxModel<>();
 
                 while (rs.next()) {
                     newModel.addElement(rs.getString("Nombre")); 
@@ -572,15 +665,20 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
                 while (rs2.next()){
                     newMode12.addElement(rs2.getString("Vendedor"));
                 }
+                while (rs3.next()){
+                    newMode13.addElement(rs3.getString("ShortFecha"));
+                }
 
                 // Set the new model to the JComboBox
                 cbcliente.setModel(newModel);
                 cbetapa.setModel(newMode11);
                 cbvendedor.setModel(newMode12);
+                cbano.setModel(newMode13);
 
                 rs.close();
                 rs1.close();
                 rs2.close();
+                rs3.close();
             } else {
                 JOptionPane.showMessageDialog(null, "Error: cbcliente is null");
             }
@@ -626,6 +724,7 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnVerEditar;
     private javax.swing.JButton btnfiltrar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbano;
     private javax.swing.JComboBox<String> cbcliente;
     private javax.swing.JComboBox<String> cbetapa;
     private javax.swing.JComboBox<String> cbvendedor;
@@ -635,11 +734,13 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton rbActivas;
+    private javax.swing.JRadioButton rbAno;
     private javax.swing.JRadioButton rbCliente;
     private javax.swing.JRadioButton rbEtapa;
     private javax.swing.JRadioButton rbInactivas;

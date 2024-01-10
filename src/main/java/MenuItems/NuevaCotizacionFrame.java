@@ -7,6 +7,8 @@ package MenuItems;
 
 import com.mycompany.intersisacotizador_ver2.Conexion;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -46,6 +48,21 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         conexion = new Conexion();
         cargarDatos();
         
+        
+        dgvCalculoBatch.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+                int selectedRow = dgvCalculoBatch.getSelectedRow();
+                if (selectedRow != -1) {
+                    // Get the table model
+                    DefaultTableModel model = (DefaultTableModel) dgvCalculoBatch.getModel();
+                    // Remove the selected row
+                    model.removeRow(selectedRow);
+                }
+            }
+        }
+        });
         
         /*DefaultTableModel modeloTabla = (DefaultTableModel) dgvCalculoBatch.getModel();
         modeloTabla.addTableModelListener(new TableModelListener() {
@@ -784,6 +801,9 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tbTipodeCambioFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tbTipodeCambioFocusLost(evt);
+            }
         });
         tbTipodeCambio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1051,7 +1071,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
-        jLabel7.setText("Utilidad deseada");
+        jLabel7.setText("Divisor deseado");
 
         tbUtilidadDeseada.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         tbUtilidadDeseada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -1835,13 +1855,13 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                             preparedStatement2.setInt(2, idnparte);
                             BigDecimal cantidad4 = new BigDecimal(modeloTabla3.getValueAt(i, 2).toString());
                             preparedStatement2.setBigDecimal(3, cantidad4);
-                            preparedStatement2.executeUpdate();
-                            JOptionPane.showMessageDialog(null, "Cotización guardada con éxito");
+                            preparedStatement2.executeUpdate();           
                             cbMatPrim.setEnabled(false);
                             dgvCalculoBatch.setEnabled(false);
                             btnCalcular.setEnabled(false);
                             btnguardar.setEnabled(false);
                         }
+                        JOptionPane.showMessageDialog(null, "Cotización guardada con éxito");
                     }catch(SQLException e){
                         JOptionPane.showMessageDialog(null, e.toString());
 
@@ -1893,6 +1913,35 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.toString());
         }
     }//GEN-LAST:event_btnActualizarMateriaPrimaActionPerformed
+
+    private void tbTipodeCambioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbTipodeCambioFocusLost
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) dgvCalculoBatch.getModel();
+        if (model.getRowCount() > 0 && !tbTipodeCambio.getText().equals("")) {
+            for(int i = 0; i < model.getRowCount(); i++)
+            {
+                String Moneda = dgvCalculoBatch.getValueAt(i, 4).toString();
+                double preciouni = Double.parseDouble(dgvCalculoBatch.getValueAt(i, 3).toString());
+
+                double total = 0;
+                if (!dgvCalculoBatch.getValueAt(i, 2).toString().equals("")) {
+                    double cantidad = Double.parseDouble(dgvCalculoBatch.getValueAt(i, 2).toString());
+                    if (Moneda.equals("MN")) {
+                        if(tbTipodeCambio.getText().equals("0.00") || tbTipodeCambio.getText().equals(""))
+                            tbTipodeCambio.setText("1.00");
+                        double tipocambio = Double.parseDouble(tbTipodeCambio.getText());
+                        total = (preciouni * cantidad) / tipocambio;
+                        total = Math.round(total * 10000.0) / 10000.0;
+                        dgvCalculoBatch.setValueAt(total, i, 5);
+                    } else {
+                        total = preciouni * cantidad;
+                        total = Math.round(total * 10000.0) / 10000.0;
+                        dgvCalculoBatch.setValueAt(total, i, 5);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_tbTipodeCambioFocusLost
 
     private void cargarDatos(){
         

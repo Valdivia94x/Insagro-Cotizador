@@ -7,6 +7,8 @@ package MenuItems;
 
 import com.mycompany.intersisacotizador_ver2.Conexion;
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -14,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -48,6 +51,20 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         conexion = new Conexion();
         cargarDatos();
         
+        dgvCalculoBatch.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+                int selectedRow = dgvCalculoBatch.getSelectedRow();
+                if (selectedRow != -1) {
+                    // Get the table model
+                    DefaultTableModel model = (DefaultTableModel) dgvCalculoBatch.getModel();
+                    // Remove the selected row
+                    model.removeRow(selectedRow);
+                }
+            }
+        }
+        });
         
         /*DefaultTableModel modeloTabla = (DefaultTableModel) dgvCalculoBatch.getModel();
         modeloTabla.addTableModelListener(new TableModelListener() {
@@ -123,6 +140,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         dgvCalculoBatch = new javax.swing.JTable();
         btnActualizarMateriaPrima = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jPanelGramosXVaca = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         tbGramosPVaca = new javax.swing.JTextField();
@@ -184,8 +202,10 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         jLabel4.setText("Etapa");
 
         cbcliente.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        cbcliente.setEnabled(false);
 
         cbetapa.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        cbetapa.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel5.setText("No. Cotización");
@@ -207,7 +227,8 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         });
 
         btnCalcular.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        btnCalcular.setText("Calcular");
+        btnCalcular.setText("Recalcular");
+        btnCalcular.setEnabled(false);
         btnCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCalcularActionPerformed(evt);
@@ -220,6 +241,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
 
         tbVendedor.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         tbVendedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tbVendedor.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel8.setText("Vendedor");
@@ -321,6 +343,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         tbPrecioBatchExtra.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tbPrecioBatchExtra.setText("1");
         tbPrecioBatchExtra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tbPrecioBatchExtra.setEnabled(false);
         tbPrecioBatchExtra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbPrecioBatchExtraActionPerformed(evt);
@@ -464,6 +487,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
 
         chksuper.setFont(new java.awt.Font("Segoe UI Light", 0, 11)); // NOI18N
         chksuper.setText("Supersaco");
+        chksuper.setEnabled(false);
         chksuper.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 chksuperItemStateChanged(evt);
@@ -472,6 +496,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
 
         chk20.setFont(new java.awt.Font("Segoe UI Light", 0, 11)); // NOI18N
         chk20.setText("Saco 20");
+        chk20.setEnabled(false);
         chk20.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 chk20ItemStateChanged(evt);
@@ -480,6 +505,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
 
         chk30.setFont(new java.awt.Font("Segoe UI Light", 0, 11)); // NOI18N
         chk30.setText("Saco 30");
+        chk30.setEnabled(false);
         chk30.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 chk30ItemStateChanged(evt);
@@ -488,6 +514,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
 
         chkinter.setFont(new java.awt.Font("Segoe UI Light", 0, 11)); // NOI18N
         chkinter.setText("Insagro");
+        chkinter.setEnabled(false);
         chkinter.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 chkinterItemStateChanged(evt);
@@ -496,6 +523,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
 
         chkterceria.setFont(new java.awt.Font("Segoe UI Light", 0, 11)); // NOI18N
         chkterceria.setText("Terciaria");
+        chkterceria.setEnabled(false);
         chkterceria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 chkterceriaItemStateChanged(evt);
@@ -604,6 +632,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                 "Número", "Materia Prima", "Cantidad", "PU", "Moneda", "DLLS", "Densidad", "", ""
             }
         ));
+        dgvCalculoBatch.setEnabled(false);
         dgvCalculoBatch.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
                 dgvCalculoBatchComponentAdded(evt);
@@ -650,10 +679,19 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
             dgvCalculoBatch.getColumnModel().getColumn(7).setMaxWidth(1);
         }
 
+        btnActualizarMateriaPrima.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         btnActualizarMateriaPrima.setText("Ac. Mat. Prim.");
         btnActualizarMateriaPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarMateriaPrimaActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -673,7 +711,9 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnagregarmat)
                                 .addGap(61, 61, 61)
-                                .addComponent(btnActualizarMateriaPrima)))
+                                .addComponent(btnActualizarMateriaPrima)
+                                .addGap(39, 39, 39)
+                                .addComponent(btnEditar)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -686,7 +726,8 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                 .addGroup(jPanelMateriaPrimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbMatPrim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnagregarmat)
-                    .addComponent(btnActualizarMateriaPrima))
+                    .addComponent(btnActualizarMateriaPrima)
+                    .addComponent(btnEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
                 .addContainerGap())
@@ -702,6 +743,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         tbGramosPVaca.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tbGramosPVaca.setText("0");
         tbGramosPVaca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tbGramosPVaca.setEnabled(false);
         tbGramosPVaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbGramosPVacaActionPerformed(evt);
@@ -742,6 +784,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         tbMezclado.setText("0.00");
         tbMezclado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tbMezclado.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        tbMezclado.setEnabled(false);
         tbMezclado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbMezcladoActionPerformed(evt);
@@ -767,6 +810,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         tbTarima.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tbTarima.setText("0.00");
         tbTarima.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tbTarima.setEnabled(false);
         tbTarima.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tbTarimaFocusGained(evt);
@@ -782,6 +826,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         tbTipodeCambio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tbTipodeCambio.setText("0.00");
         tbTipodeCambio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tbTipodeCambio.setEnabled(false);
         tbTipodeCambio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tbTipodeCambioFocusGained(evt);
@@ -797,6 +842,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         tbFlete.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tbFlete.setText("0.00");
         tbFlete.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tbFlete.setEnabled(false);
         tbFlete.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tbFleteFocusGained(evt);
@@ -812,6 +858,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         tbParticipacion.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tbParticipacion.setText("0.00");
         tbParticipacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tbParticipacion.setEnabled(false);
         tbParticipacion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tbParticipacionFocusGained(evt);
@@ -825,6 +872,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
 
         cbpart.setFont(new java.awt.Font("Segoe UI Light", 0, 11)); // NOI18N
         cbpart.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "%", "$" }));
+        cbpart.setEnabled(false);
 
         javax.swing.GroupLayout jPanelCostosLayout = new javax.swing.GroupLayout(jPanelCostos);
         jPanelCostos.setLayout(jPanelCostosLayout);
@@ -1053,10 +1101,11 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
-        jLabel7.setText("Utilidad deseada");
+        jLabel7.setText("Divisor utilizado");
 
         tbUtilidadDeseada.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         tbUtilidadDeseada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tbUtilidadDeseada.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -1815,7 +1864,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                         preparedStatement.setString(10, flete);
                         preparedStatement.setString(11, tipopart);
                         preparedStatement.setBigDecimal(12, participacion);
-                        preparedStatement.setString(13, descripcion);
+                        preparedStatement.setString(13, "ACTUALIZACIÓN COTIZACIÓN " + idcot + " con fecha "+ fecha+ "\n " + descripcion);
                         preparedStatement.setInt(14, 1);
                         preparedStatement.setString(15, vendedor);
                         preparedStatement.executeUpdate();
@@ -1825,6 +1874,20 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
 
                     DefaultTableModel modeloTabla3 = (DefaultTableModel) dgvCalculoBatch.getModel();
                     try{
+                        
+                        PreparedStatement idCotNuevo;
+                        ResultSet rsIdCotNuevo;
+                        idCotNuevo = con.prepareStatement("select top 1 Id_Cotizacion as numero from Cotizacion order by Id_Cotizacion Desc");
+                        rsIdCotNuevo = idCotNuevo.executeQuery();
+                        int cotNum = 0;
+                        
+                        while (rsIdCotNuevo.next()){
+                            cotNum = Integer.parseInt(rsIdCotNuevo.getString("numero"));
+                            //idcot2 = cotNum + 1;
+                            //textBox2.setText(rsIdCotNuevo.setString("numero"));
+                            textBox2.setText(String.valueOf(cotNum));
+                        }
+                        
                         for(int i = 0; i < dgvCalculoBatch.getRowCount(); i++)
                         {
                             Object nparte = modeloTabla3.getValueAt(i, 0);
@@ -1833,17 +1896,18 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
 
                             con = conexion.establecerConexion();
                             PreparedStatement preparedStatement2 = con.prepareStatement("insert into Detalle_Cotizacion (Id_Cotizacion,Id_Mp,Cantidad) values (?,?,?)");
-                            preparedStatement2.setInt(1, idcot);
+                            preparedStatement2.setInt(1, cotNum);
                             preparedStatement2.setInt(2, idnparte);
                             BigDecimal cantidad4 = new BigDecimal(modeloTabla3.getValueAt(i, 2).toString());
                             preparedStatement2.setBigDecimal(3, cantidad4);
                             preparedStatement2.executeUpdate();
-                            JOptionPane.showMessageDialog(null, "Cotización guardada con éxito");
+                            //JOptionPane.showMessageDialog(null, "Cotización guardada con éxito");
                             cbMatPrim.setEnabled(false);
                             dgvCalculoBatch.setEnabled(false);
                             btnCalcular.setEnabled(false);
                             btnguardar.setEnabled(false);
                         }
+                        JOptionPane.showMessageDialog(null, "Cotización guardada con éxito");
                     }catch(SQLException e){
                         JOptionPane.showMessageDialog(null, e.toString());
 
@@ -1895,6 +1959,30 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.toString());
         }
     }//GEN-LAST:event_btnActualizarMateriaPrimaActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        cbcliente.setEnabled(true);
+        cbetapa.setEnabled(true);
+        tbPrecioBatchExtra.setEnabled(true);
+        tbVendedor.setEnabled(true);
+        tbUtilidadDeseada.setEnabled(true);
+        tbGramosPVaca.setEnabled(true);
+        tbMezclado.setEnabled(true);
+        tbTarima.setEnabled(true);
+        tbFlete.setEnabled(true);
+        tbTipodeCambio.setEnabled(true);
+        tbParticipacion.setEnabled(true);
+        cbpart.setEnabled(true);
+        dgvCalculoBatch.setEnabled(true);
+        chk20.setEnabled(true);
+        chksuper.setEnabled(true);
+        chk30.setEnabled(true);
+        chkinter.setEnabled(true);
+        chkterceria.setEnabled(true);
+        //btnguardar.setEnabled(true);
+        btnCalcular.setEnabled(true);
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void cargarDatos(){
         
@@ -2014,6 +2102,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                     BigDecimal precio = new BigDecimal(rs6.getString("Precio"));
                     if(rs6.getString("Moneda").equals("MN")){
                         total = (cantidad.multiply(precio)).divide(tCambio,scale,roundingMode);
+                        //total = (cantidad.multiply(precio));
                         roundedTotal = total.setScale(2, RoundingMode.HALF_UP);
                     }
                     else{
@@ -2037,26 +2126,399 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                     };
 
                     model.addRow(rowData);
-                }
-                
-                //SACAMOS LA UTILIDAD HACIENDO DE REVERSA LA FÓRMULA, TENEMOS QUE AGREGAR LOS INGREDIENTES YA QUE ESOS SALEN POR EL CÁLCULO DE
-                //LAS MATERIAS PRIMAS DE LA TABLA
-                double mezcladoRev = Double.parseDouble(tbMezclado.getText());
-                double tipoCambioRev = Double.parseDouble(tbTipodeCambio.getText());
-                double division1 = mezcladoRev / tipoCambioRev;
-                
-                double ingredientesRev = Double.parseDouble(lblIngredientes.getText());
-                double suma1 = division1 + ingredientesRev;
-                
-                double division2 = ingredientesRev / suma1;
-                tbUtilidadDeseada.setText(String.valueOf(division2));
-                
+                }                                
             } else {
                 JOptionPane.showMessageDialog(null, "Error: cbcot is null");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }
+        
+        //AGREGUÉ TODO ESTO PARA REALIZAR LOS CÁLCULOS
+        if(tbTipodeCambio.getText().equals(""))
+            tbTipodeCambio.setText("1");
+        if(tbFlete.getText().equals(""))
+            tbFlete.setText("1");
+        if(tbTarima.getText().equals(""))
+            tbTarima.setText("1");
+        if(tbParticipacion.getText().equals(""))
+            tbParticipacion.setText("1");
+        
+        BigDecimal mez = new BigDecimal(tbPrecioBatchExtra.getText()).multiply(new BigDecimal(tbBatchExtra.getText())).add(new BigDecimal(tbMezclado.getText()));
+
+        BigDecimal tar = new BigDecimal(tbTarima.getText());
+        BigDecimal fle = new BigDecimal(tbFlete.getText());
+        BigDecimal volumentotal = BigDecimal.ZERO;
+        BigDecimal masalb = BigDecimal.ZERO;
+        BigDecimal volumen = BigDecimal.ZERO;
+        BigDecimal mil = BigDecimal.ZERO;
+
+        Object cliente = cbcliente.getSelectedItem();
+        String cboxclientes = cliente.toString();
+        Object participacion = cbpart.getSelectedItem();
+        String cbpart1 = participacion.toString();
+        Object etapa = cbetapa.getSelectedItem();
+        String cboxetapa = etapa.toString();
+
+        try
+        {
+            if(!cboxclientes.equals("") && !cbpart1.equals("") && !cboxetapa.equals("") &&((chk20.isSelected() || chk30.isSelected() || chksuper.isSelected())
+                && (chkinter.isSelected() || chkterceria.isSelected())) && !tbPrecioBatchExtra.getText().equals("0.00"))
+        {
+            int rowCount = dgvCalculoBatch.getRowCount();
+            for(int i = 0; i < rowCount; i++)
+            {
+                /*String num = dgvCalculoBatch.getValueAt(i, dgvCalculoBatch.getColumnModel().getColumnIndex(0)).toString();
+                String nom = dgvCalculoBatch.getValueAt(i, dgvCalculoBatch.getColumnModel().getColumnIndex(1)).toString();*/
+                String num = dgvCalculoBatch.getValueAt(i, 0).toString();
+                String nom = dgvCalculoBatch.getValueAt(i, 1).toString();
+                /*BigDecimal can = new BigDecimal(dgvCalculoBatch.getValueAt(i, dgvCalculoBatch.getColumnModel().getColumnIndex("Cantidad")).toString());
+                BigDecimal den = new BigDecimal(dgvCalculoBatch.getValueAt(i, dgvCalculoBatch.getColumnModel().getColumnIndex("Densidad")).toString());*/             
+                //BigDecimal can = new BigDecimal(dgvCalculoBatch.getValueAt(i, 2).toString());
+                //BigDecimal den = new BigDecimal(dgvCalculoBatch.getValueAt(i, 6).toString());
+                Object valueTable = dgvCalculoBatch.getValueAt(i, 2);
+                Object valueTable2 = dgvCalculoBatch.getValueAt(i, 6);
+                BigDecimal can;
+                if (valueTable != null) {
+                    can = new BigDecimal(valueTable.toString());
+                } else {
+                    can = BigDecimal.ONE;
+                }
+                BigDecimal den = BigDecimal.valueOf(1);
+                if (valueTable2 != null) {
+                    den = new BigDecimal(valueTable2.toString());
+                } else {
+                    den = BigDecimal.ONE;
+                }
+                BigDecimal cam = new BigDecimal(tbTipodeCambio.getText());
+
+                masalb = can.multiply(new BigDecimal("2.2046"));
+                volumen = masalb.divide(den, RoundingMode.HALF_UP);
+                volumentotal = volumentotal.add(volumen);
+                //mil = mil.add(new BigDecimal(dgvCalculoBatch.getValueAt(i, dgvCalculoBatch.getColumnModel().getColumnIndex(2)).toString()));
+                //mil = mil.add(new BigDecimal(dgvCalculoBatch.getValueAt(i, 2).toString())); ESTA USABA ANTES DE HACER LAS VALIDACIONES
+                if (valueTable != null) {
+                    mil = mil.add(new BigDecimal(valueTable.toString()));
+                } else {
+                    mil = mil.add(BigDecimal.ONE);
+                }
+            }
+
+            int comparasion = mil.compareTo(new BigDecimal(1000));
+
+            if(comparasion == 0)
+            {
+                simil = true;
+                BigDecimal conversionFactor = new BigDecimal("40.59");
+                BigDecimal result = volumentotal.multiply(BigDecimal.valueOf(100)).divide(conversionFactor, 4, RoundingMode.HALF_UP);
+                txt_volumen.setText(result.toString());
+                //(Convert.ToDecimal(txt_volumen.Text) * Convert.ToDecimal(1000.00 / 271.00)) / 100;
+                BigDecimal hundred = new BigDecimal("100");
+                //CAMBIAR EL 1000 por 500
+                //BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 271.00))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
+                BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 500))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
+                BigDecimal vol2 = vol.setScale(0, RoundingMode.FLOOR).add(BigDecimal.ONE);
+                txt_batch.setText(vol2.toString());
+
+                if(result.compareTo(new BigDecimal("100")) >= 0) //SE SEBREPASA EL VOLUMEN
+                {
+                    txt_volumen.setOpaque(true);
+                    txt_volumen.setBackground(Color.RED);
+
+                    //AQUÍ LE CAMBIÉ, ERAN 271 EN LOS DOS DE 450
+                    for(int i = 271; i >= 1; i = i - 10)
+                    {
+                        BigDecimal batch = new BigDecimal("1000.00").divide(BigDecimal.valueOf(i), RoundingMode.HALF_UP);
+                        BigDecimal batch2 = new BigDecimal("1000.00").divide(BigDecimal.valueOf(i - 10), RoundingMode.HALF_UP);
+
+                        if(i == 271)
+                        {
+                            if (vol.compareTo(BigDecimal.ZERO) > 0 && vol.compareTo(batch) <= 0){
+                                txt_tamaño.setText(Integer.toString(i));
+                                i = 0;
+                            }
+                            if (vol.compareTo(batch) > 0 && vol.compareTo(batch2) <= 0){
+                                txt_tamaño.setText(Integer.toString(i - 10));
+                                i = 0;
+                            }
+                        }
+                        else
+                        {
+                            if (vol.compareTo(batch) > 0 && vol.compareTo(batch2) < 0){
+                                txt_tamaño.setText(Integer.toString(i - 10));
+                                i = 0;
+                            }
+                        }
+                    }
+                    //tbPrecioBatchExtra.setEnabled(true);
+                }
+                else //MENOS DE 100%
+                {
+                    txt_volumen.setOpaque(true);
+                    txt_volumen.setBackground(Color.LIGHT_GRAY);
+                    //AQUÍ TAMBIÉN LE CAMBIÉ, DECÍA 271
+                    txt_tamaño.setText("271");
+                }
+                BigDecimal batch = new BigDecimal(txt_batch.getText());
+                BigDecimal tamaño = new BigDecimal(txt_tamaño.getText());
+                BigDecimal total = batch.multiply(tamaño);
+                txt_total.setText(total.toString());
+            }
+            else
+            {
+                BigDecimal restan = new BigDecimal("1000").subtract(mil);
+                if (restan.compareTo(BigDecimal.ZERO) > 0)
+                    JOptionPane.showMessageDialog(null, "Las cantidades no suman 1000, suman "+mil+"\n Faltan "+restan+ "\n Verifique por favor");
+                else
+                    //restan.multiply(BigDecimal.valueOf(-1));
+                    JOptionPane.showMessageDialog(null, "Las cantidades no suman 1000, suman "+mil+"\n Sobran "+restan.multiply(BigDecimal.valueOf(-1))+ "\n Verifique por favor");
+                simil = false;
+            }
+
+            BigDecimal totalmat = BigDecimal.ZERO;
+            BigDecimal precmat = BigDecimal.ZERO; //NUEVO
+            for(int i = 0; i < rowCount; i++)
+            {
+                //precmat = new BigDecimal(dgvCalculoBatch.getValueAt(i, dgvCalculoBatch.getColumnModel().getColumnIndex(5)).toString());
+                Object valueTable3 = dgvCalculoBatch.getValueAt(i, 5);
+                if(valueTable3 != null)
+                    precmat = new BigDecimal(valueTable3.toString());
+                else
+                    precmat = BigDecimal.ONE;
+                //precmat = new BigDecimal(dgvCalculoBatch.getValueAt(i, 5).toString()); ESTE SE USABA ANTES
+                totalmat = totalmat.add(precmat);
+            }
+            lblIngredientes.setText(totalmat.toString());
+            BigDecimal preciosaco = BigDecimal.ZERO;
+
+            if(chksuper.isSelected() == true)
+            {
+                txt_cantidadsacos.setText("1");
+                txt_kilos.setText(txt_total.getText());
+
+                //PODRÍA REVISAR ESTO, YA QUE HAY DOS TRY-CATCH, PODRIA DEJARLO EN 1 TAL VEZ
+                if(chkinter.isSelected() == true)
+                {
+                    try{
+                        con = conexion.establecerConexion();
+                        PreparedStatement psCal = con.prepareStatement("select * from Sacos where Id_Saco = 1 order by Nombre Asc");
+                        ResultSet rsCal = psCal.executeQuery();
+                        while(rsCal.next())
+                        {
+                            preciosaco = new BigDecimal(rsCal.getString("precio"));
+                            lblEnsacado.setText(preciosaco.toString());
+                        }
+                        rsCal.close();
+                    }catch(SQLException e){
+                        JOptionPane.showMessageDialog(null, e.toString());
+                    }
+                }else
+                {
+                    try{
+                        con = conexion.establecerConexion();
+                        PreparedStatement psCal = con.prepareStatement("select * from Sacos where Id_Saco = 4 order by Nombre Asc");
+                        ResultSet rsCal = psCal.executeQuery();
+                        while(rsCal.next())
+                        {
+                            preciosaco = new BigDecimal(rsCal.getString("precio"));
+                            lblEnsacado.setText(preciosaco.toString());
+                        }
+                        rsCal.close();
+                    }catch(SQLException e){
+                        JOptionPane.showMessageDialog(null, e.toString());
+                    }
+                }
+            }
+
+            else if(chk20.isSelected() == true)
+            {
+                if(simil == true)
+                {
+                    int tamano = Integer.parseInt(txt_tamaño.getText().substring(0,2));
+                    int cantidadsacos = (tamano/20)*Integer.parseInt(txt_batch.getText());
+                    txt_cantidadsacos.setText(Integer.toString(cantidadsacos));
+                    txt_kilos.setText("20");
+                    if(chkinter.isSelected() == true)
+                    {
+                        try{
+                            con = conexion.establecerConexion();
+                            PreparedStatement psCal = con.prepareStatement("select * from Sacos where Id_Saco = 2 order by Nombre Asc");
+                            ResultSet rsCal = psCal.executeQuery();
+                            while(rsCal.next())
+                            {
+                                preciosaco = new BigDecimal(rsCal.getString("precio"));
+                                preciosaco = preciosaco.multiply(new BigDecimal(txt_cantidadsacos.getText()));
+                                lblEnsacado.setText(preciosaco.toString());
+                            }
+                            rsCal.close();
+                        }catch(SQLException e){
+                            JOptionPane.showMessageDialog(null, e.toString());
+                        }
+                    }
+                }
+                else
+                {
+                    try{
+                        con = conexion.establecerConexion();
+                        PreparedStatement psCal = con.prepareStatement("select * from Sacos where Id_Saco = 5 order by Nombre Asc");
+                        ResultSet rsCal = psCal.executeQuery();
+                        while(rsCal.next())
+                        {
+                            preciosaco = new BigDecimal(rsCal.getString("precio"));
+                            preciosaco = preciosaco.multiply(new BigDecimal(txt_cantidadsacos.getText()));
+                            lblEnsacado.setText(preciosaco.toString());
+                        }
+                        rsCal.close();
+                    }catch(SQLException e){
+                        JOptionPane.showMessageDialog(null, e.toString());
+                    }
+                }
+            }
+
+            else if(chk30.isSelected() == true)
+            {
+                if(simil == true)
+                {
+                    int tamano = Integer.parseInt(txt_tamaño.getText().substring(0,2));
+                    int cantidadsacos = (tamano/30)*Integer.parseInt(txt_batch.getText());
+                    txt_cantidadsacos.setText(Integer.toString(cantidadsacos));
+                    txt_kilos.setText("30");
+                    if(chkinter.isSelected() == true)
+                    {
+                        try{
+                            con = conexion.establecerConexion();
+                            PreparedStatement psCal = con.prepareStatement("select * from Sacos where Id_Saco = 3 order by Nombre Asc");
+                            ResultSet rsCal = psCal.executeQuery();
+                            while(rsCal.next())
+                            {
+                                preciosaco = new BigDecimal(rsCal.getString("precio"));
+                                preciosaco = preciosaco.multiply(new BigDecimal(txt_cantidadsacos.getText()));
+                                lblEnsacado.setText(preciosaco.toString());
+                            }
+                            rsCal.close();
+                        }catch(SQLException e){
+                            JOptionPane.showMessageDialog(null, e.toString());
+                        }
+                    }
+                }
+                else
+                {
+                    try{
+                        con = conexion.establecerConexion();
+                        PreparedStatement psCal = con.prepareStatement("select * from Sacos where Id_Saco = 6 order by Nombre Asc");
+                        ResultSet rsCal = psCal.executeQuery();
+                        while(rsCal.next())
+                        {
+                            preciosaco = new BigDecimal(rsCal.getString("precio"));
+                            preciosaco = preciosaco.multiply(new BigDecimal(txt_cantidadsacos.getText()));
+                            lblEnsacado.setText(preciosaco.toString());
+                        }
+                        rsCal.close();
+                    }catch(SQLException e){
+                        JOptionPane.showMessageDialog(null, e.toString());
+                    }
+                }
+            }
+
+            //REVISION HASTA AQUÍ
+            BigDecimal totalbatchCal = BigDecimal.ZERO;
+            BigDecimal txtvolumenCal = new BigDecimal(txt_volumen.getText());
+            if(txtvolumenCal.compareTo(BigDecimal.valueOf(100)) > 0)
+            {
+                int batch1 = Integer.parseInt(txt_batch.getText())+1;
+                txt_batch.setText(Integer.toString(batch1));
+                BigDecimal div = new BigDecimal((Integer.parseInt(txt_total.getText())/Integer.parseInt(txt_batch.getText())));
+                txt_tamaño.setText(div.toString());
+                int extra1 = Integer.parseInt(txt_batch.getText())-4;
+                txtextra.setText(Integer.toString(extra1));
+
+                //CAMBIO
+                int scale = 10;
+                RoundingMode roundingMode = RoundingMode.HALF_UP;
+                BigDecimal totalbatch2 = new BigDecimal(tbPrecioBatchExtra.getText()).divide(new BigDecimal(tbTipodeCambio.getText()),scale,roundingMode);
+                //HASTA AQUÍ CAMBIO
+                totalbatchCal = totalbatch2.multiply(new BigDecimal(txtextra.getText()));
+                txttotalbatch.setText(totalbatchCal.toString());
+            }
+            int scale = 10;
+            RoundingMode roundingMode = RoundingMode.HALF_UP;
+            BigDecimal mezclado = new BigDecimal(tbMezclado.getText()).divide(new BigDecimal(tbTipodeCambio.getText()),scale,roundingMode);
+            BigDecimal tarima = new BigDecimal(tbTarima.getText()).divide(new BigDecimal(tbTipodeCambio.getText()),scale,roundingMode);
+            BigDecimal flete = new BigDecimal(tbFlete.getText()).divide(new BigDecimal(tbTipodeCambio.getText()),scale,roundingMode);
+            BigDecimal ingredientes = new BigDecimal(lblIngredientes.getText());
+            BigDecimal ensacado = new BigDecimal(lblEnsacado.getText());
+            BigDecimal batchprecio =  new BigDecimal(txttotalbatch.getText());
+            BigDecimal subtotal = mezclado.add(tarima).add(flete).add(ingredientes).add(ensacado).add(batchprecio);
+            lblSubtotal.setText(subtotal.toString());
+            BigDecimal parti = BigDecimal.ZERO;
+            BigDecimal participa = new BigDecimal(tbParticipacion.getText()).divide(BigDecimal.valueOf(100));
+            BigDecimal totaltotal = BigDecimal.ZERO;
+
+            //COMENTÉ ESTO YA QUE ES DONDE TOMA LA UTILIDAD DESEADA Y CALCULA EL MEZCLADO, PENSAR COMO HACERLO
+            //ESTO AGREGUÉ
+            /*BigDecimal utilidadDeseada1 = BigDecimal.valueOf(0);
+            if (!tbUtilidadDeseada.getText().equals("") || !tbUtilidadDeseada.getText().equals("NaN")){
+                utilidadDeseada1 = BigDecimal.valueOf(100).subtract(new BigDecimal(tbUtilidadDeseada.getText()));
+                //utilidadDeseada1 = BigDecimal.valueOf(100);
+            }
+            else{
+                utilidadDeseada1 = BigDecimal.valueOf(100);
+            }
+            BigDecimal utilidadDeseadaDecimal = utilidadDeseada1.divide(BigDecimal.valueOf(100));
+            BigDecimal resUtilidadDeseada = ingredientes.divide(utilidadDeseadaDecimal,scale,roundingMode);
+            BigDecimal totalUtilidadDeseada = resUtilidadDeseada.subtract(ingredientes);
+            BigDecimal utilidadDeseadaDolares = totalUtilidadDeseada.multiply(new BigDecimal(tbTipodeCambio.getText()));
+            tbMezclado.setText(utilidadDeseadaDolares.toString());
+            //HASTA AQUÍ*/
+
+            Object part3 = cbpart.getSelectedItem();
+            String cbpart3 = part3.toString();
+            if(cbpart3.equals("%"))
+            {
+                /*AQUÍ CAMBIO
+                parti = subtotal.multiply(participa).setScale(4, RoundingMode.HALF_UP);*/
+                parti = new BigDecimal(tbMezclado.getText()).multiply(participa).setScale(4, RoundingMode.HALF_UP);
+                lblParticipacion.setText(parti.toString());
+                totaltotal = parti.add(subtotal);
+                lblTotal.setText(totaltotal.toString());
+            }
+            else if(cbpart3.equals("$"))
+            {
+                parti = new BigDecimal(tbParticipacion.getText()).divide(new BigDecimal(tbTipodeCambio.getText()),scale,roundingMode);
+                lblParticipacion.setText(parti.toString());
+                totaltotal = parti.add(subtotal);
+                lblTotal.setText(totaltotal.toString());
+            }
+            //btnguardar.setEnabled(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Verifique todos los campos, por favor");
+        }
+        }
+        /*catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e.toString());
+        }*/
+        catch (IllegalArgumentException e) {
+            // Print the stack trace to the console
+            e.printStackTrace();
+        }
+        
+        //SACAMOS LA UTILIDAD HACIENDO DE REVERSA LA FÓRMULA, TENEMOS QUE AGREGAR LOS INGREDIENTES YA QUE ESOS SALEN POR EL CÁLCULO DE
+        //LAS MATERIAS PRIMAS DE LA TABLA
+        double mezcladoRev = Double.parseDouble(tbMezclado.getText());
+        double tipoCambioRev = Double.parseDouble(tbTipodeCambio.getText());
+        double division1 = mezcladoRev / tipoCambioRev;
+                
+        double ingredientesRev = Double.parseDouble(lblIngredientes.getText());
+        double suma1 = division1 + ingredientesRev;
+                
+        double division2 = ingredientesRev / suma1;
+        double mult1 = division2 * 100;
+        double resDef = 100 - mult1;
+        DecimalFormat df = new DecimalFormat("#.00");
+        tbUtilidadDeseada.setText(String.valueOf(df.format(resDef)));
     }
     
     private void addRows(){
@@ -2119,7 +2581,6 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -2133,6 +2594,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
     private javax.swing.JPanel JPanelDatosGenerales;
     private javax.swing.JButton btnActualizarMateriaPrima;
     private javax.swing.JButton btnCalcular;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnagregarmat;
     private javax.swing.JButton btnguardar;
     private javax.swing.JComboBox<String> cbMatPrim;
