@@ -219,6 +219,11 @@ public class PrecioMPFrame extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jButton1.setText("Ver / Editar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -383,6 +388,20 @@ public class PrecioMPFrame extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = dgvAfectadas.getSelectedRow();
+        if(selectedRow != -1){
+            int valor = Integer.parseInt(dgvAfectadas.getValueAt(selectedRow, 0).toString());
+            ListadoCotizacionFrame.Num_cot = valor;
+            ModificarCotizacionFrame mcf = new ModificarCotizacionFrame();
+            mcf.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Seleccione una cotización para modificar");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void limpiar(){
         txtNombrePMP.setText("");

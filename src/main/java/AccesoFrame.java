@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -27,8 +28,14 @@ import javax.swing.Timer;
 public class AccesoFrame extends javax.swing.JFrame {
 
     int xMouse, yMouse;
+    
+    private static Connection conn;
+    private static Conexion conexionn;
+    
     public AccesoFrame() {
         initComponents();
+        conexionn = new Conexion();
+        createNewTable();
     }
 
     /**
@@ -287,6 +294,25 @@ public class AccesoFrame extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
+    public static void createNewTable() {
+        // SQL statement for creating a new table
+        String sql = "IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'vendedores') " +
+                         "BEGIN " +
+                         "    CREATE TABLE vendedores ( " +
+                         "        id_vendedor INT PRIMARY KEY, " +
+                         "        nombre VARCHAR(255) " +
+                         "    ); " +
+                         "END;";
+        
+        try {
+            conn = conexionn.establecerConexion();
+            Statement ps = conn.createStatement(); 
+            ps.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -315,6 +341,8 @@ public class AccesoFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        /*conexionn = new Conexion();
+        createNewTable();*/
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AccesoFrame().setVisible(true);

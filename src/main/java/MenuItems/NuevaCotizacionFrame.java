@@ -1374,6 +1374,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         if(tbParticipacion.getText().equals(""))
             tbParticipacion.setText("1");
         
+        //PODRÍA CHECAR SI EL ORDEN DE LOS OPERACIONES ES CORRECTO
         BigDecimal mez = new BigDecimal(tbPrecioBatchExtra.getText()).multiply(new BigDecimal(tbBatchExtra.getText())).add(new BigDecimal(tbMezclado.getText()));
 
         BigDecimal tar = new BigDecimal(tbTarima.getText());
@@ -1422,7 +1423,8 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 }
                 BigDecimal cam = new BigDecimal(tbTipodeCambio.getText());
 
-                masalb = can.multiply(new BigDecimal("2.2046"));
+                //masalb = can.multiply(new BigDecimal("2.2046"));
+                masalb = can.multiply(BigDecimal.valueOf(2.2046));
                 volumen = masalb.divide(den, RoundingMode.HALF_UP);
                 volumentotal = volumentotal.add(volumen);
                 //mil = mil.add(new BigDecimal(dgvCalculoBatch.getValueAt(i, dgvCalculoBatch.getColumnModel().getColumnIndex(2)).toString()));
@@ -1445,8 +1447,8 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 //(Convert.ToDecimal(txt_volumen.Text) * Convert.ToDecimal(1000.00 / 271.00)) / 100;
                 BigDecimal hundred = new BigDecimal("100");
                 //CAMBIAR EL 1000 por 500
-                //BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 271.00))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
-                BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 500))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
+                BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 271.00))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
+                //BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 500))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
                 BigDecimal vol2 = vol.setScale(0, RoundingMode.FLOOR).add(BigDecimal.ONE);
                 txt_batch.setText(vol2.toString());
 
@@ -1924,7 +1926,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 double preciouni = Double.parseDouble(dgvCalculoBatch.getValueAt(i, 3).toString());
 
                 double total = 0;
-                if (!dgvCalculoBatch.getValueAt(i, 2).toString().equals("")) {
+                if (dgvCalculoBatch.getValueAt(i, 2) != null) {
                     double cantidad = Double.parseDouble(dgvCalculoBatch.getValueAt(i, 2).toString());
                     if (Moneda.equals("MN")) {
                         if(tbTipodeCambio.getText().equals("0.00") || tbTipodeCambio.getText().equals(""))
@@ -2038,6 +2040,10 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 total = Math.round(total * 10000.0) / 10000.0;
                 dgvCalculoBatch.setValueAt(total, row, 5);
             }
+        }
+        
+        for(int i = 0; i < dgvCalculoBatch.getRowCount(); i++){
+            dgvCalculoBatch.setValueAt(i+1, i, 7);
         }
     }
     

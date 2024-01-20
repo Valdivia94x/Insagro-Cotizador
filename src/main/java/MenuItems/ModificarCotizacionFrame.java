@@ -831,6 +831,9 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tbTipodeCambioFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tbTipodeCambioFocusLost(evt);
+            }
         });
         tbTipodeCambio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1072,6 +1075,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         textBox3.setColumns(20);
         textBox3.setLineWrap(true);
         textBox3.setRows(5);
+        textBox3.setEnabled(false);
         jScrollPane2.setViewportView(textBox3);
 
         javax.swing.GroupLayout jPanelObservacionesLayout = new javax.swing.GroupLayout(jPanelObservaciones);
@@ -1783,6 +1787,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                     idcliente = 0;
                     BigDecimal preciobatch = new BigDecimal(tbPrecioBatchExtra.getText());
                     String fecha = txtFecha.getText();
+                    String fechaHoy = txtFecha.getText();
                     String gramos = tbGramosPVaca.getText();
                     String mezcla = tbMezclado.getText();
                     String tarima = tbTarima.getText();
@@ -1823,12 +1828,18 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                         Object clientes3 = cbcliente.getSelectedItem();
                         String cliente3 = clientes3.toString();
                         con = conexion.establecerConexion();
-                        PreparedStatement concliente = con.prepareStatement("select * from Clientes where Activo = 1 and Nombre = ? order by Nombre Asc");
+                        PreparedStatement concliente = con.prepareStatement("select * from Clientes where Nombre = ? order by Nombre Asc");
+                        PreparedStatement conFecha = con.prepareStatement("select CONVERT(varchar,GETDATE(),111) as fechaFormat");
                         concliente.setString(1, cliente3);
                         ResultSet rs = concliente.executeQuery();
+                        ResultSet rsfecha = conFecha.executeQuery();
                         while(rs.next())
                         {
                             idcliente = Integer.parseInt(rs.getString("Id_Cliente"));
+                        }
+                        while(rsfecha.next())
+                        {
+                            fechaHoy = rsfecha.getString("fechaFormat");
                         }
                         //rs.close();
 
@@ -1844,6 +1855,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                         }
                         rs.close();
                         rs1.close();
+                        rsfecha.close();
                     }catch(SQLException e){
                         JOptionPane.showMessageDialog(null, e.toString());
                     }
@@ -1855,7 +1867,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                         preparedStatement.setInt(1, idetapa);
                         preparedStatement.setInt(2, idcliente);
                         preparedStatement.setInt(3, idsaco);
-                        preparedStatement.setString(4, fecha);
+                        preparedStatement.setString(4, fechaHoy);
                         preparedStatement.setBigDecimal(5, tipocambio);
                         preparedStatement.setString(6, gramos);
                         preparedStatement.setBigDecimal(7, preciobatch);
@@ -1982,9 +1994,47 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         chkterceria.setEnabled(true);
         //btnguardar.setEnabled(true);
         btnCalcular.setEnabled(true);
+        textBox3.setEnabled(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void tbTipodeCambioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbTipodeCambioFocusLost
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) dgvCalculoBatch.getModel();
+        if (model.getRowCount() > 0 && !tbTipodeCambio.getText().equals("")) {
+            for(int i = 0; i < model.getRowCount(); i++)
+            {
+                String Moneda = dgvCalculoBatch.getValueAt(i, 4).toString();
+                double preciouni = Double.parseDouble(dgvCalculoBatch.getValueAt(i, 3).toString());
+
+                double total = 0;
+                if (dgvCalculoBatch.getValueAt(i, 2) != null) {
+                    double cantidad = Double.parseDouble(dgvCalculoBatch.getValueAt(i, 2).toString());
+                    if (Moneda.equals("MN")) {
+                        if(tbTipodeCambio.getText().equals("0.00") || tbTipodeCambio.getText().equals(""))
+                            tbTipodeCambio.setText("1.00");
+                        double tipocambio = Double.parseDouble(tbTipodeCambio.getText());
+                        total = (preciouni * cantidad) / tipocambio;
+                        total = Math.round(total * 10000.0) / 10000.0;
+                        dgvCalculoBatch.setValueAt(total, i, 5);
+                    } else {
+                        total = preciouni * cantidad;
+                        total = Math.round(total * 10000.0) / 10000.0;
+                        dgvCalculoBatch.setValueAt(total, i, 5);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_tbTipodeCambioFocusLost
+
     private void cargarDatos(){
+        
+        int[]anchosMax = {60,360,65,45,60,65,70,25,0};
+        int[]anchosMin = {50,300,55,35,40,50,70,15,0};
+        for(int i = 0; i < dgvCalculoBatch.getColumnCount(); i++){
+            //dgvCalculoBatch.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            dgvCalculoBatch.getColumnModel().getColumn(i).setMaxWidth(anchosMax[i]);
+            dgvCalculoBatch.getColumnModel().getColumn(i).setMinWidth(anchosMin[i]);
+        }
         
         PreparedStatement ps, ps1, ps2, ps3, ps4, ps5;
         ResultSet rs, rs1, rs2, rs3, rs4, rs5;
@@ -2122,7 +2172,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                         //tCambio.toString(),
                         rs6.getObject("Densidad"),
                         "",
-                        rs6.getObject("Id_Mp")
+                        ""
                     };
 
                     model.addRow(rowData);
@@ -2519,6 +2569,10 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         double resDef = 100 - mult1;
         DecimalFormat df = new DecimalFormat("#.00");
         tbUtilidadDeseada.setText(String.valueOf(df.format(resDef)));
+        
+        for(int i = 0; i < dgvCalculoBatch.getRowCount(); i++){
+            dgvCalculoBatch.setValueAt(i+1, i, 7);
+        }
     }
     
     private void addRows(){
@@ -2554,6 +2608,10 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                 total = Math.round(total * 10000.0) / 10000.0;
                 dgvCalculoBatch.setValueAt(total, row, 5);
             }
+        }
+        
+        for(int i = 0; i < dgvCalculoBatch.getRowCount(); i++){
+            dgvCalculoBatch.setValueAt(i+1, i, 7);
         }
     }
     
