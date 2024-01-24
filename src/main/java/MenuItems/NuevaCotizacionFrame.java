@@ -100,8 +100,8 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         btnguardar = new javax.swing.JButton();
         btnCalcular = new javax.swing.JButton();
         txtFecha = new javax.swing.JLabel();
-        tbVendedor = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        cbVendedor = new javax.swing.JComboBox<>();
         JPanelBatch = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -233,11 +233,15 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         txtFecha.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         txtFecha.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        tbVendedor.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        tbVendedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
         jLabel8.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel8.setText("Vendedor");
+
+        cbVendedor.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        cbVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbVendedorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout JPanelDatosGeneralesLayout = new javax.swing.GroupLayout(JPanelDatosGenerales);
         JPanelDatosGenerales.setLayout(JPanelDatosGeneralesLayout);
@@ -263,16 +267,16 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                         .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(99, 99, 99)
                 .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
+                        .addComponent(cbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCalcular))
                     .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnguardar))
-                    .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
-                        .addComponent(tbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCalcular)))
+                        .addComponent(btnguardar)))
                 .addContainerGap())
         );
         JPanelDatosGeneralesLayout.setVerticalGroup(
@@ -297,17 +301,14 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                                 .addComponent(cbetapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6))))
                     .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
-                        .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
-                                .addComponent(btnguardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                            .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(3, 3, 3)))
+                        .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnguardar)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCalcular)
-                            .addComponent(tbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(7, 7, 7)))
+                            .addComponent(cbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -618,7 +619,15 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             new String [] {
                 "Número", "Materia Prima", "Cantidad", "PU", "Moneda", "DLLS", "Densidad", "", ""
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         dgvCalculoBatch.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
                 dgvCalculoBatchComponentAdded(evt);
@@ -1749,9 +1758,11 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                     int idcliente;
                     int idetapa;
                     int idsaco;
+                    int idvendedor;
                     idetapa = 1;
                     idsaco = 0;
                     idcliente = 0;
+                    idvendedor = 1;
                     BigDecimal preciobatch = new BigDecimal(tbPrecioBatchExtra.getText());
                     String fecha = txtFecha.getText();
                     String gramos = tbGramosPVaca.getText();
@@ -1763,7 +1774,8 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                     Object parte = cbpart.getSelectedItem();
                     String tipopart = parte.toString();
                     String descripcion = textBox3.getText();
-                    String vendedor = tbVendedor.getText();
+                    Object vend = cbVendedor.getSelectedItem();
+                    String vendedor = vend.toString();
 
                     if (chksuper.isSelected() == true && chkinter.isSelected() == true)
                     {
@@ -1813,15 +1825,25 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                             idetapa = (rs1.getInt("Id_Etapa"));
                             //System.out.println(idetapa);
                         }
+                        Object vendedores1 = cbVendedor.getSelectedItem();
+                        String vendedor1 = vendedores1.toString();
+                        PreparedStatement convendedor = con.prepareStatement("select id_vendedor from vendedores where Activo = 1 and nombre = ? order by nombre Asc");
+                        convendedor.setString(1,vendedor1);
+                        ResultSet rs2 = convendedor.executeQuery();
+                        while(rs2.next())
+                        {
+                            idvendedor = (rs2.getInt("id_vendedor"));
+                        }
                         rs.close();
                         rs1.close();
+                        rs2.close();
                     }catch(SQLException e){
                         JOptionPane.showMessageDialog(null, e.toString());
                     }
 
                     try{
                         con = conexion.establecerConexion();
-                        String sql = "INSERT INTO Cotizacion (Id_Etapa, Id_Cliente, Id_Saco, Fecha, Tipo_cambio, Gramos_vaca, Precio_batch, Mezclado, Tarima, Flete, Tipo_part, Participacion, Descripcion, Activo, Vendedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        String sql = "INSERT INTO Cotizacion (Id_Etapa, Id_Cliente, Id_Saco, Fecha, Tipo_cambio, Gramos_vaca, Precio_batch, Mezclado, Tarima, Flete, Tipo_part, Participacion, Descripcion, Activo, Id_Vendedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         PreparedStatement preparedStatement = con.prepareStatement(sql);
                         preparedStatement.setInt(1, idetapa);
                         preparedStatement.setInt(2, idcliente);
@@ -1837,7 +1859,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                         preparedStatement.setBigDecimal(12, participacion);
                         preparedStatement.setString(13, descripcion);
                         preparedStatement.setInt(14, 1);
-                        preparedStatement.setString(15, vendedor);
+                        preparedStatement.setInt(15, idvendedor);
                         preparedStatement.executeUpdate();
                     }catch(SQLException e){
                         JOptionPane.showMessageDialog(null, e.toString());
@@ -1945,10 +1967,14 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbTipodeCambioFocusLost
 
+    private void cbVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbVendedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbVendedorActionPerformed
+
     private void cargarDatos(){
         
-        PreparedStatement ps, ps1, ps2, ps3, ps4;
-        ResultSet rs, rs1, rs2, rs3, rs4;
+        PreparedStatement ps, ps1, ps2, ps3, ps4, ps5;
+        ResultSet rs, rs1, rs2, rs3, rs4, rs5;
 
         try {
             con = conexion.establecerConexion();
@@ -1959,16 +1985,19 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 ps2 = con.prepareStatement("SELECT * FROM MP WHERE Activo=1 ORDER BY Nombre ASC");
                 ps3 = con.prepareStatement("select top 1 Id_Cotizacion as numero from Cotizacion order by Id_Cotizacion Desc");
                 ps4 = con.prepareStatement("select CONVERT(varchar,GETDATE(),111) as fecha");
+                ps5 = con.prepareStatement("select * FROM vendedores WHERE Activo=1 ORDER BY Nombre ASC");
                 rs = ps.executeQuery();               
                 rs1 = ps1.executeQuery();              
                 rs2 = ps2.executeQuery();
                 rs3 = ps3.executeQuery();
                 rs4 = ps4.executeQuery();
+                rs5 = ps5.executeQuery();
 
                 // Create a new DefaultComboBoxModel to replace the existing one
                 DefaultComboBoxModel<String> newModel = new DefaultComboBoxModel<>();
                 DefaultComboBoxModel<String> newMode11 = new DefaultComboBoxModel<>();
                 DefaultComboBoxModel<String> newModel2 = new DefaultComboBoxModel<>();
+                DefaultComboBoxModel<String> newModel3 = new DefaultComboBoxModel<>();
 
                 while (rs.next()) {
                     newModel.addElement(rs.getString("Nombre")); 
@@ -1988,11 +2017,15 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 while (rs4.next()){
                     txtFecha.setText(rs4.getString("fecha"));
                 }
+                while(rs5.next()){
+                    newModel3.addElement(rs5.getString("nombre"));
+                }
 
                 // Set the new model to the JComboBox
                 cbcliente.setModel(newModel);
                 cbetapa.setModel(newMode11);
                 cbMatPrim.setModel(newModel2);
+                cbVendedor.setModel(newModel3);
 
                 rs.close();
                 rs1.close();
@@ -2087,6 +2120,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnagregarmat;
     private javax.swing.JButton btnguardar;
     private javax.swing.JComboBox<String> cbMatPrim;
+    private javax.swing.JComboBox<String> cbVendedor;
     private javax.swing.JComboBox<String> cbcliente;
     private javax.swing.JComboBox<String> cbetapa;
     private javax.swing.JComboBox<String> cbpart;
@@ -2157,7 +2191,6 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
     private javax.swing.JTextField tbTarima;
     private javax.swing.JTextField tbTipodeCambio;
     private javax.swing.JTextField tbUtilidadDeseada;
-    private javax.swing.JTextField tbVendedor;
     private javax.swing.JLabel textBox2;
     private javax.swing.JTextArea textBox3;
     private javax.swing.JLabel txtFecha;

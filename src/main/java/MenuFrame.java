@@ -7,6 +7,8 @@ import MenuItems.ListadoMateriaPrimaFrame;
 import MenuItems.NuevaCotizacionFrame;
 import MenuItems.PreciosFrame;
 import MenuItems.UsuariosFrame;
+import MenuItems.VendedoresFrame;
+import java.awt.Color;
 import java.awt.Font;
 
 /*
@@ -59,6 +61,7 @@ public class MenuFrame extends javax.swing.JFrame {
         jMenuEtapas = new javax.swing.JMenu();
         jMenuPrecios = new javax.swing.JMenu();
         jMenuUsuarios = new javax.swing.JMenu();
+        jMenuVendedores = new javax.swing.JMenu();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,7 +100,7 @@ public class MenuFrame extends javax.swing.JFrame {
         );
 
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuBar1.setMargin(new java.awt.Insets(0, 140, 0, 0));
+        jMenuBar1.setMargin(new java.awt.Insets(0, 88, 0, 0));
         jMenuBar1.setPreferredSize(new java.awt.Dimension(398, 45));
 
         jMenuCotizaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cotizaciones.png"))); // NOI18N
@@ -242,6 +245,27 @@ public class MenuFrame extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenuUsuarios);
 
+        jMenuVendedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vendedores.png"))); // NOI18N
+        jMenuVendedores.setText("Vendedores");
+        jMenuVendedores.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuVendedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuVendedoresMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jMenuVendedoresMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jMenuVendedoresMouseExited(evt);
+            }
+        });
+        jMenuVendedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuVendedoresActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenuVendedores);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -335,62 +359,111 @@ public class MenuFrame extends javax.swing.JFrame {
     private void jMenuCotizacionesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCotizacionesMouseEntered
         // TODO add your handling code here:
         jMenuCotizaciones.setFont(fontIn);
+        jMenuCotizaciones.setOpaque(true);
+        jMenuCotizaciones.setBackground(Color.lightGray);
     }//GEN-LAST:event_jMenuCotizacionesMouseEntered
 
     private void jMenuCotizacionesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCotizacionesMouseExited
         // TODO add your handling code here:
         jMenuCotizaciones.setFont(fontOut);
+        jMenuCotizaciones.setOpaque(false);
+        jMenuCotizaciones.setBackground(Color.white);
     }//GEN-LAST:event_jMenuCotizacionesMouseExited
 
     private void jMenuClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuClientesMouseEntered
         // TODO add your handling code here:
         jMenuClientes.setFont(fontIn);
+        jMenuClientes.setOpaque(true);
+        jMenuClientes.setBackground(Color.lightGray);
     }//GEN-LAST:event_jMenuClientesMouseEntered
 
     private void jMenuClientesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuClientesMouseExited
         // TODO add your handling code here:
         jMenuClientes.setFont(fontOut);
+        jMenuClientes.setOpaque(false);
+        jMenuClientes.setBackground(Color.white);
     }//GEN-LAST:event_jMenuClientesMouseExited
 
     private void jMenu3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseEntered
         // TODO add your handling code here:
         jMenu3.setFont(fontIn);
+        jMenu3.setOpaque(true);
+        jMenu3.setBackground(Color.lightGray);
     }//GEN-LAST:event_jMenu3MouseEntered
 
     private void jMenu3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseExited
         // TODO add your handling code here:
         jMenu3.setFont(fontOut);
+        jMenu3.setOpaque(false);
+        jMenu3.setBackground(Color.white);
     }//GEN-LAST:event_jMenu3MouseExited
 
     private void jMenuEtapasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuEtapasMouseEntered
         // TODO add your handling code here:
         jMenuEtapas.setFont(fontIn);
+        jMenuEtapas.setOpaque(true);
+        jMenuEtapas.setBackground(Color.lightGray);
     }//GEN-LAST:event_jMenuEtapasMouseEntered
 
     private void jMenuEtapasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuEtapasMouseExited
         // TODO add your handling code here:
         jMenuEtapas.setFont(fontOut);
+        jMenuEtapas.setOpaque(false);
+        jMenuEtapas.setBackground(Color.white);
     }//GEN-LAST:event_jMenuEtapasMouseExited
 
     private void jMenuPreciosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuPreciosMouseEntered
         // TODO add your handling code here:
         jMenuPrecios.setFont(fontIn);
+        jMenuPrecios.setOpaque(true);
+        jMenuPrecios.setBackground(Color.lightGray);
     }//GEN-LAST:event_jMenuPreciosMouseEntered
 
     private void jMenuPreciosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuPreciosMouseExited
         // TODO add your handling code here:
         jMenuPrecios.setFont(fontOut);
+        jMenuPrecios.setOpaque(false);
+        jMenuPrecios.setBackground(Color.white);
     }//GEN-LAST:event_jMenuPreciosMouseExited
 
     private void jMenuUsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuUsuariosMouseEntered
         // TODO add your handling code here:
         jMenuUsuarios.setFont(fontIn);
+        jMenuUsuarios.setOpaque(true);
+        jMenuUsuarios.setBackground(Color.lightGray);
     }//GEN-LAST:event_jMenuUsuariosMouseEntered
 
     private void jMenuUsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuUsuariosMouseExited
         // TODO add your handling code here:
         jMenuUsuarios.setFont(fontOut);
+        jMenuUsuarios.setOpaque(false);
+        jMenuUsuarios.setBackground(Color.white);
     }//GEN-LAST:event_jMenuUsuariosMouseExited
+
+    private void jMenuVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVendedoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuVendedoresActionPerformed
+
+    private void jMenuVendedoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuVendedoresMouseEntered
+        // TODO add your handling code here:
+        jMenuVendedores.setFont(fontIn);
+        jMenuVendedores.setOpaque(true);
+        jMenuVendedores.setBackground(Color.lightGray);
+    }//GEN-LAST:event_jMenuVendedoresMouseEntered
+
+    private void jMenuVendedoresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuVendedoresMouseExited
+        // TODO add your handling code here:
+        jMenuVendedores.setFont(fontOut);
+        jMenuVendedores.setOpaque(false);
+        jMenuVendedores.setBackground(Color.white);
+    }//GEN-LAST:event_jMenuVendedoresMouseExited
+
+    private void jMenuVendedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuVendedoresMouseClicked
+        // TODO add your handling code here:
+        VendedoresFrame vf = new VendedoresFrame();
+        vf.setVisible(true);
+        setSize(1070,85);
+    }//GEN-LAST:event_jMenuVendedoresMouseClicked
 
     /**
      * @param args the command line arguments
@@ -440,6 +513,7 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemNuevaCotizacion;
     private javax.swing.JMenu jMenuPrecios;
     private javax.swing.JMenu jMenuUsuarios;
+    private javax.swing.JMenu jMenuVendedores;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelContent;
     // End of variables declaration//GEN-END:variables

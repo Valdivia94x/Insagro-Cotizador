@@ -43,6 +43,9 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
     
     private String idNumCot = String.valueOf(ListadoCotizacionFrame.Num_cot);
     
+    private int clickCount = 0;
+    private static final int MAX_CLICKS = 5;
+    
     int xMouse, yMouse;
     public ModificarCotizacionFrame() {
         initComponents();
@@ -102,8 +105,8 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         btnguardar = new javax.swing.JButton();
         btnCalcular = new javax.swing.JButton();
         txtFecha = new javax.swing.JLabel();
-        tbVendedor = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        cbVendedor = new javax.swing.JComboBox<>();
         JPanelBatch = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -239,12 +242,10 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         txtFecha.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         txtFecha.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        tbVendedor.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        tbVendedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tbVendedor.setEnabled(false);
-
         jLabel8.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel8.setText("Vendedor");
+
+        cbVendedor.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout JPanelDatosGeneralesLayout = new javax.swing.GroupLayout(JPanelDatosGenerales);
         JPanelDatosGenerales.setLayout(JPanelDatosGeneralesLayout);
@@ -270,16 +271,16 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                         .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(85, 85, 85)
                 .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
+                        .addComponent(cbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCalcular))
                     .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnguardar))
-                    .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
-                        .addComponent(tbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCalcular)))
+                        .addComponent(btnguardar)))
                 .addContainerGap())
         );
         JPanelDatosGeneralesLayout.setVerticalGroup(
@@ -304,17 +305,14 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                                 .addComponent(cbetapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6))))
                     .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
-                        .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
-                                .addComponent(btnguardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                            .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(3, 3, 3)))
+                        .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnguardar)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCalcular)
-                            .addComponent(tbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(7, 7, 7)))
+                            .addComponent(cbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -617,6 +615,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
 
         btnagregarmat.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         btnagregarmat.setText("Agregar");
+        btnagregarmat.setEnabled(false);
         btnagregarmat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnagregarmatActionPerformed(evt);
@@ -1480,8 +1479,8 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                 //(Convert.ToDecimal(txt_volumen.Text) * Convert.ToDecimal(1000.00 / 271.00)) / 100;
                 BigDecimal hundred = new BigDecimal("100");
                 //CAMBIAR EL 1000 por 500
-                //BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 271.00))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
-                BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 500))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
+                BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 271.00))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
+                //BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 500))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
                 BigDecimal vol2 = vol.setScale(0, RoundingMode.FLOOR).add(BigDecimal.ONE);
                 txt_batch.setText(vol2.toString());
 
@@ -1491,12 +1490,12 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                     txt_volumen.setBackground(Color.RED);
 
                     //AQUÍ LE CAMBIÉ, ERAN 271 EN LOS DOS DE 450
-                    for(int i = 450; i >= 1; i = i - 10)
+                    for(int i = 271; i >= 1; i = i - 10)
                     {
                         BigDecimal batch = new BigDecimal("1000.00").divide(BigDecimal.valueOf(i), RoundingMode.HALF_UP);
                         BigDecimal batch2 = new BigDecimal("1000.00").divide(BigDecimal.valueOf(i - 10), RoundingMode.HALF_UP);
 
-                        if(i == 450)
+                        if(i == 271)
                         {
                             if (vol.compareTo(BigDecimal.ZERO) > 0 && vol.compareTo(batch) <= 0){
                                 txt_tamaño.setText(Integer.toString(i));
@@ -1522,7 +1521,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                     txt_volumen.setOpaque(true);
                     txt_volumen.setBackground(Color.LIGHT_GRAY);
                     //AQUÍ TAMBIÉN LE CAMBIÉ, DECÍA 271
-                    txt_tamaño.setText("450");
+                    txt_tamaño.setText("271");
                 }
                 BigDecimal batch = new BigDecimal(txt_batch.getText());
                 BigDecimal tamaño = new BigDecimal(txt_tamaño.getText());
@@ -1767,6 +1766,17 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
             // Print the stack trace to the console
             e.printStackTrace();
         }
+        
+        clickCount++;
+
+        // Check if the maximum number of clicks is reached
+        if (clickCount < MAX_CLICKS) {
+            // Simulate a button click
+            btnCalcular.doClick();
+        } else {
+            // Optionally, reset the click count or perform other actions
+            clickCount = 0;
+        }
     }//GEN-LAST:event_btnCalcularActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
@@ -1782,9 +1792,11 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                     int idcliente;
                     int idetapa;
                     int idsaco;
+                    int idvendedor;
                     idetapa = 1;
                     idsaco = 0;
                     idcliente = 0;
+                    idvendedor = 1;
                     BigDecimal preciobatch = new BigDecimal(tbPrecioBatchExtra.getText());
                     String fecha = txtFecha.getText();
                     String fechaHoy = txtFecha.getText();
@@ -1797,7 +1809,8 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                     Object parte = cbpart.getSelectedItem();
                     String tipopart = parte.toString();
                     String descripcion = textBox3.getText();
-                    String vendedor = tbVendedor.getText();
+                    Object vend = cbVendedor.getSelectedItem();
+                    String vendedor = vend.toString();
 
                     if (chksuper.isSelected() == true && chkinter.isSelected() == true)
                     {
@@ -1853,9 +1866,19 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                             idetapa = (rs1.getInt("Id_Etapa"));
                             //System.out.println(idetapa);
                         }
+                        Object vendedores1 = cbVendedor.getSelectedItem();
+                        String vendedor1 = vendedores1.toString();
+                        PreparedStatement convendedor = con.prepareStatement("select id_vendedor from vendedores where Activo = 1 and nombre = ? order by nombre Asc");
+                        convendedor.setString(1,vendedor1);
+                        ResultSet rs2 = convendedor.executeQuery();
+                        while(rs2.next())
+                        {
+                            idvendedor = (rs2.getInt("id_vendedor"));
+                        }
                         rs.close();
                         rs1.close();
                         rsfecha.close();
+                        rs2.close();
                     }catch(SQLException e){
                         JOptionPane.showMessageDialog(null, e.toString());
                     }
@@ -1878,7 +1901,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                         preparedStatement.setBigDecimal(12, participacion);
                         preparedStatement.setString(13, "ACTUALIZACIÓN COTIZACIÓN " + idcot + " con fecha "+ fecha+ "\n " + descripcion);
                         preparedStatement.setInt(14, 1);
-                        preparedStatement.setString(15, vendedor);
+                        preparedStatement.setString(15, String.valueOf(idvendedor));
                         preparedStatement.executeUpdate();
                     }catch(SQLException e){
                         JOptionPane.showMessageDialog(null, e.toString());
@@ -1977,7 +2000,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         cbcliente.setEnabled(true);
         cbetapa.setEnabled(true);
         tbPrecioBatchExtra.setEnabled(true);
-        tbVendedor.setEnabled(true);
+        cbVendedor.setEnabled(true);
         tbUtilidadDeseada.setEnabled(true);
         tbGramosPVaca.setEnabled(true);
         tbMezclado.setEnabled(true);
@@ -1995,6 +2018,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
         //btnguardar.setEnabled(true);
         btnCalcular.setEnabled(true);
         textBox3.setEnabled(true);
+        btnagregarmat.setEnabled(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void tbTipodeCambioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbTipodeCambioFocusLost
@@ -2036,8 +2060,8 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
             dgvCalculoBatch.getColumnModel().getColumn(i).setMinWidth(anchosMin[i]);
         }
         
-        PreparedStatement ps, ps1, ps2, ps3, ps4, ps5;
-        ResultSet rs, rs1, rs2, rs3, rs4, rs5;
+        PreparedStatement ps, ps1, ps2, ps3, ps4, ps5, ps44;
+        ResultSet rs, rs1, rs2, rs3, rs4, rs44, rs5;
 
         try {
             con = conexion.establecerConexion();
@@ -2049,18 +2073,21 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                 ps3 = con.prepareStatement("select Id_Cotizacion as numero from Cotizacion WHERE Id_Cotizacion= "+idNumCot);
                 //ps4 = con.prepareStatement("select CONVERT(varchar,GETDATE(),111) as fecha");
                 ps4 = con.prepareStatement("select Fecha FROM Cotizacion WHERE Id_Cotizacion= "+idNumCot);
-                ps5 = con.prepareStatement("select Cotizacion.Id_Saco as saco,Cotizacion.Descripcion as observ,Cotizacion.Participacion as parti,Cotizacion.Tipo_part as tp,Cotizacion.Gramos_vaca as gramos,Cotizacion.Tipo_cambio as tipoc,Cotizacion.Flete as flete,Cotizacion.Tarima as tarima,Cotizacion.Mezclado as mezc,Cotizacion.Precio_batch as pbatch,Clientes.Nombre as ncliente,Etapa.Nombre as netapa, Cotizacion.Fecha as Fecha, Cotizacion.Vendedor as Vend from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Id_Cotizacion = " + idNumCot + "");
+                ps44 = con.prepareStatement("select * FROM vendedores ORDER BY nombre ASC");
+                ps5 = con.prepareStatement("select Cotizacion.Id_Saco as saco,Cotizacion.Descripcion as observ,Cotizacion.Participacion as parti,Cotizacion.Tipo_part as tp,Cotizacion.Gramos_vaca as gramos,Cotizacion.Tipo_cambio as tipoc,Cotizacion.Flete as flete,Cotizacion.Tarima as tarima,Cotizacion.Mezclado as mezc,Cotizacion.Precio_batch as pbatch,Clientes.Nombre as ncliente,Etapa.Nombre as netapa, Cotizacion.Fecha as Fecha, vendedores.nombre as Vend from Cotizacion left join vendedores on Cotizacion.Id_Vendedor=vendedores.id_vendedor inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Id_Cotizacion = " + idNumCot + "");
                 rs = ps.executeQuery();               
                 rs1 = ps1.executeQuery();              
                 rs2 = ps2.executeQuery();
                 rs3 = ps3.executeQuery();
                 rs4 = ps4.executeQuery();
+                rs44 = ps44.executeQuery();
                 rs5 = ps5.executeQuery();
 
                 // Create a new DefaultComboBoxModel to replace the existing one
                 DefaultComboBoxModel<String> newModel = new DefaultComboBoxModel<>();
                 DefaultComboBoxModel<String> newMode11 = new DefaultComboBoxModel<>();
                 DefaultComboBoxModel<String> newModel2 = new DefaultComboBoxModel<>();
+                DefaultComboBoxModel<String> newModel3 = new DefaultComboBoxModel<>();
 
                 while (rs.next()) {
                     newModel.addElement(rs.getString("Nombre")); 
@@ -2079,11 +2106,15 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                 while (rs4.next()){
                     txtFecha.setText(rs4.getString("fecha"));
                 }
+                while (rs44.next()){
+                    newModel3.addElement(rs44.getString("nombre"));
+                }
                 
                 // Set the new model to the JComboBox
                 cbcliente.setModel(newModel);
                 cbetapa.setModel(newMode11);
                 cbMatPrim.setModel(newModel2);
+                cbVendedor.setModel(newModel3);
                 int saco = 0;
                 
                 //ESCOGEMOS LOS DATOS DEPENDIENDO DE LA COTIZACION SELECCIONADA
@@ -2099,7 +2130,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                     cbpart.setSelectedItem(rs5.getString("tp"));
                     tbParticipacion.setText(rs5.getString("parti"));
                     textBox3.setText(rs5.getString("observ"));
-                    tbVendedor.setText(rs5.getString("Vend"));
+                    cbVendedor.setSelectedItem(rs5.getString("Vend"));
                     saco = rs5.getInt("saco");
                 }
 
@@ -2108,6 +2139,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                 rs2.close();
                 rs3.close();
                 rs4.close();
+                rs44.close();
                 rs5.close();
                 
                 if (saco == 1)
@@ -2265,8 +2297,8 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
                 //(Convert.ToDecimal(txt_volumen.Text) * Convert.ToDecimal(1000.00 / 271.00)) / 100;
                 BigDecimal hundred = new BigDecimal("100");
                 //CAMBIAR EL 1000 por 500
-                //BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 271.00))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
-                BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 500))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
+                BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 271.00))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
+                //BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 500))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
                 BigDecimal vol2 = vol.setScale(0, RoundingMode.FLOOR).add(BigDecimal.ONE);
                 txt_batch.setText(vol2.toString());
 
@@ -2656,6 +2688,7 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnagregarmat;
     private javax.swing.JButton btnguardar;
     private javax.swing.JComboBox<String> cbMatPrim;
+    private javax.swing.JComboBox<String> cbVendedor;
     private javax.swing.JComboBox<String> cbcliente;
     private javax.swing.JComboBox<String> cbetapa;
     private javax.swing.JComboBox<String> cbpart;
@@ -2726,7 +2759,6 @@ public class ModificarCotizacionFrame extends javax.swing.JFrame {
     private javax.swing.JTextField tbTarima;
     private javax.swing.JTextField tbTipodeCambio;
     private javax.swing.JTextField tbUtilidadDeseada;
-    private javax.swing.JTextField tbVendedor;
     private javax.swing.JLabel textBox2;
     private javax.swing.JTextArea textBox3;
     private javax.swing.JLabel txtFecha;

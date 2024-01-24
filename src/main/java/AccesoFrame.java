@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,6 +37,7 @@ public class AccesoFrame extends javax.swing.JFrame {
         initComponents();
         conexionn = new Conexion();
         createNewTable();
+        alterTables();
     }
 
     /**
@@ -299,8 +301,9 @@ public class AccesoFrame extends javax.swing.JFrame {
         String sql = "IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'vendedores') " +
                          "BEGIN " +
                          "    CREATE TABLE vendedores ( " +
-                         "        id_vendedor INT PRIMARY KEY, " +
-                         "        nombre VARCHAR(255) " +
+                         "        id_vendedor INT IDENTITY(1,1) PRIMARY KEY, " +
+                         "        nombre VARCHAR(255), " +
+                         "        Activo BIT " +
                          "    ); " +
                          "END;";
         
@@ -308,6 +311,32 @@ public class AccesoFrame extends javax.swing.JFrame {
             conn = conexionn.establecerConexion();
             Statement ps = conn.createStatement(); 
             ps.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void alterTables(){
+        String columnName = "Id_Vendedor";
+        String tableName = "Cotizacion";
+
+        try {
+            conn = conexionn.establecerConexion();
+            DatabaseMetaData metaData = conn.getMetaData();
+            ResultSet resultSet = metaData.getColumns(null, null, tableName, columnName);
+
+            if (!resultSet.next()) {
+                // Column doesn't exist, so add it
+                String sql = "ALTER TABLE " + tableName +
+                             " ADD " + columnName + " INT FOREIGN KEY REFERENCES Vendedores(id_vendedor);";
+
+                Statement statement = conn.createStatement();
+                statement.execute(sql);
+                System.out.println("Column added successfully.");
+            } else {
+                // Column already exists
+                System.out.println("Column already exists.");
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
