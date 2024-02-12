@@ -10,6 +10,7 @@ import MenuItems.UsuariosFrame;
 import MenuItems.VendedoresFrame;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -36,6 +37,8 @@ public class MenuFrame extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setLocation(getX(), 5);
+        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appicon.png")));
     }
 
     /**

@@ -38,6 +38,8 @@ public class AccesoFrame extends javax.swing.JFrame {
         conexionn = new Conexion();
         createNewTable();
         alterTables();
+        alterTables2();
+        alterTables3();
     }
 
     /**
@@ -329,6 +331,58 @@ public class AccesoFrame extends javax.swing.JFrame {
                 // Column doesn't exist, so add it
                 String sql = "ALTER TABLE " + tableName +
                              " ADD " + columnName + " INT FOREIGN KEY REFERENCES Vendedores(id_vendedor);";
+
+                Statement statement = conn.createStatement();
+                statement.execute(sql);
+                System.out.println("Column added successfully.");
+            } else {
+                // Column already exists
+                System.out.println("Column already exists.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void alterTables2(){
+        String columnName = "Proveedor";
+        String tableName = "MP";
+
+        try {
+            conn = conexionn.establecerConexion();
+            DatabaseMetaData metaData = conn.getMetaData();
+            ResultSet resultSet = metaData.getColumns(null, null, tableName, columnName);
+
+            if (!resultSet.next()) {
+                // Column doesn't exist, so add it
+                String sql = "ALTER TABLE " + tableName +
+                             " ADD " + columnName + " VARCHAR(50);";
+
+                Statement statement = conn.createStatement();
+                statement.execute(sql);
+                System.out.println("Column added successfully.");
+            } else {
+                // Column already exists
+                System.out.println("Column already exists.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void alterTables3(){
+        String columnName = "Establo";
+        String tableName = "Cotizacion";
+
+        try {
+            conn = conexionn.establecerConexion();
+            DatabaseMetaData metaData = conn.getMetaData();
+            ResultSet resultSet = metaData.getColumns(null, null, tableName, columnName);
+
+            if (!resultSet.next()) {
+                // Column doesn't exist, so add it
+                String sql = "ALTER TABLE " + tableName +
+                             " ADD " + columnName + " VARCHAR(50);";
 
                 Statement statement = conn.createStatement();
                 statement.execute(sql);

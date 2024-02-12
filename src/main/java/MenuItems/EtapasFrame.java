@@ -6,6 +6,7 @@
 package MenuItems;
 
 import com.mycompany.intersisacotizador_ver2.Conexion;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,6 +33,8 @@ public class EtapasFrame extends javax.swing.JFrame {
         setLocation(getX(), 75);
         conexion = new Conexion();
         cargarDatos();
+        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appicon.png")));
     }
 
     /**
@@ -75,6 +78,7 @@ public class EtapasFrame extends javax.swing.JFrame {
         });
 
         btnguardar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/guardar.png"))); // NOI18N
         btnguardar.setText("Guardar");
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

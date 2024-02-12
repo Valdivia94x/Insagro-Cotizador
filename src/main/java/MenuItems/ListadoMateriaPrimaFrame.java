@@ -6,6 +6,7 @@
 package MenuItems;
 
 import com.mycompany.intersisacotizador_ver2.Conexion;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,6 +33,8 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setLocation(getX(), 75);
         conexion = new Conexion();
+        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appicon.png")));
     }
 
     /**
@@ -58,6 +61,7 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
         dgvprecios = new javax.swing.JTable();
         btnActivar = new javax.swing.JButton();
         btnInactivar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -161,17 +165,37 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "#MP", "Nombre", "N_Parte", "Precio", "Moneda", "Densidad"
+                "#MP", "Nombre", "Proveedor", "Precio", "Moneda", "Densidad"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(dgvprecios);
 
         btnActivar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         btnActivar.setText("Reactivar");
         btnActivar.setEnabled(false);
+        btnActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivarActionPerformed(evt);
+            }
+        });
 
         btnInactivar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         btnInactivar.setText("Inactivar");
+        btnInactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInactivarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoinsa.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -183,6 +207,8 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
+                        .addGap(150, 150, 150)
+                        .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -196,12 +222,14 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnActivar)
                     .addComponent(btnInactivar))
@@ -282,17 +310,17 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
         
         //-----ACTIVAS-----
         if (rbActivas.isSelected() && !txtNombre.equals("")){
-            codsql = "select Id_MP as #MP,Nombre,N_Parte,Precio,Moneda,Densidad from MP where Activo = 1 and Nombre like '%"+nombre+"%'";
+            codsql = "select Id_MP as #MP,Nombre,Proveedor,Precio,Moneda,Densidad from MP where Activo = 1 and Nombre like '%"+nombre+"%' ORDER BY Id_MP Desc";
         }
         else if (rbActivas.isSelected()){
-            codsql = "select Id_MP as #MP,Nombre,N_Parte,Precio,Moneda,Densidad from MP where Activo = 1";
+            codsql = "select Id_MP as #MP,Nombre,Proveedor,Precio,Moneda,Densidad from MP where Activo = 1 ORDER BY Id_MP Desc";
         }
         //-----INACTIVAS-----
         else if (rbInactivas.isSelected() && !txtNombre.equals("")){
-            codsql = "select Id_MP as #MP,Nombre,N_Parte,Precio,Moneda,Densidad from MP where Activo = 0 and Nombre like '%"+nombre+"%'";
+            codsql = "select Id_MP as #MP,Nombre,Proveedor,Precio,Moneda,Densidad from MP where Activo = 0 and Nombre like '%"+nombre+"%' ORDER BY Id_MP Desc";
         }
         else if (rbInactivas.isSelected()){
-            codsql = "select Id_MP as #MP,Nombre,N_Parte,Precio,Moneda,Densidad from MP where Activo = 0";
+            codsql = "select Id_MP as #MP,Nombre,Proveedor,Precio,Moneda,Densidad from MP where Activo = 0 ORDER BY Id_MP Desc";
         }
         
         PreparedStatement ps;
@@ -300,7 +328,7 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
         ResultSetMetaData rsmd;
         int columnas;
         
-        int[]anchos = {20,200,20,20,20,20};
+        int[]anchos = {10,300,150,10,10,10};
         for(int i = 0; i < dgvprecios.getColumnCount(); i++){
             dgvprecios.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
@@ -324,6 +352,44 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void btnInactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInactivarActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = dgvprecios.getSelectedRow();
+        int selectedId = (int) dgvprecios.getValueAt(selectedRow, 0);
+        
+        try{
+                con = conexion.establecerConexion();
+                PreparedStatement ps = con.prepareStatement("UPDATE MP SET Activo=0 WHERE Id_Mp=?");
+                ps.setInt(1, selectedId);
+                ps.executeUpdate();
+                // Remove the row from the table
+                ((DefaultTableModel) dgvprecios.getModel()).removeRow(selectedRow);
+                JOptionPane.showMessageDialog(null, "Materia prima eliminada");
+
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, e.toString());
+            }
+    }//GEN-LAST:event_btnInactivarActionPerformed
+
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = dgvprecios.getSelectedRow();
+        int selectedId = (int) dgvprecios.getValueAt(selectedRow, 0);
+        
+        try{
+                con = conexion.establecerConexion();
+                PreparedStatement ps = con.prepareStatement("UPDATE MP SET Activo=1 WHERE Id_Mp=?");
+                ps.setInt(1, selectedId);
+                ps.executeUpdate();
+                // Remove the row from the table
+                ((DefaultTableModel) dgvprecios.getModel()).removeRow(selectedRow);
+                JOptionPane.showMessageDialog(null, "Materia prima activada");
+
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, e.toString());
+            }
+    }//GEN-LAST:event_btnActivarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -368,6 +434,7 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTable dgvprecios;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;

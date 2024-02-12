@@ -6,6 +6,7 @@
 package MenuItems;
 
 import com.mycompany.intersisacotizador_ver2.Conexion;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,6 +30,8 @@ public class AltaMateriaPrimaFrame extends javax.swing.JFrame {
         setLocation(getX(), 75);
         conexion = new Conexion();
         cargarTabla();
+        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appicon.png")));
     }
 
     /**
@@ -53,9 +56,12 @@ public class AltaMateriaPrimaFrame extends javax.swing.JFrame {
         txtDensidad = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         cbMoneda = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        txtProveedor = new javax.swing.JTextField();
         btnguardar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         dgvprecios = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -121,27 +127,36 @@ public class AltaMateriaPrimaFrame extends javax.swing.JFrame {
         cbMoneda.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         cbMoneda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DLL", "MN" }));
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        jLabel8.setText("Proveedor");
+
+        txtProveedor.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txtProveedor.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtProveedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
                         .addGap(47, 47, 47)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtDensidad, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                             .addComponent(txtNombre)
                             .addComponent(txtNoparte)
                             .addComponent(txtPrecio)
-                            .addComponent(cbMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel4))
+                            .addComponent(cbMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtProveedor))))
                 .addGap(0, 69, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -156,18 +171,24 @@ public class AltaMateriaPrimaFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtDensidad, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(0, 5, Short.MAX_VALUE))
+                    .addComponent(txtProveedor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDensidad, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(cbMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(23, 23, 23))
         );
 
         btnguardar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
@@ -183,44 +204,58 @@ public class AltaMateriaPrimaFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "#MP", "Nombre", "N_Parte", "Densidad"
+                "#MP", "Nombre", "Proveedor", "Precio", "Moneda", "Densidad"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(dgvprecios);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoinsa.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)))
-                .addGap(0, 15, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(342, 342, 342))
+                .addGap(343, 343, 343))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(65, 65, 65)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnguardar)
-                .addGap(12, 12, 12)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -264,6 +299,7 @@ public class AltaMateriaPrimaFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String noParte = txtNoparte.getText();
         String nombre = txtNombre.getText();
+        String proveedor = txtProveedor.getText();
         String densidad = txtDensidad.getText();
         String precio = txtPrecio.getText();
         Object moneda = cbMoneda.getSelectedItem();
@@ -272,14 +308,15 @@ public class AltaMateriaPrimaFrame extends javax.swing.JFrame {
         {
             try{
                 con = conexion.establecerConexion(); 
-                    PreparedStatement ps = con.prepareStatement("insert into MP (Nombre,N_Parte,Precio,Moneda,Densidad,Activo) values (?,?,?,?,?,1)");
+                    PreparedStatement ps = con.prepareStatement("insert into MP (Nombre,N_Parte,Precio,Moneda,Densidad,Activo,Proveedor) values (?,?,?,?,?,1,?)");
                     ps.setString(1, nombre);
                     ps.setString(2, noParte);
                     ps.setString(3, precio);
                     ps.setString(4, monedaMod);
                     ps.setString(5, densidad);
+                    ps.setString(6, proveedor);
                     ps.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Materia Prima registrado");
+                    JOptionPane.showMessageDialog(null, "Materia Prima registrada");
                     limpiar();
                     /*DefaultComboBoxModel model = (DefaultComboBoxModel) cbusuarios.getModel();
                     model.removeAllElements();*/
@@ -300,6 +337,7 @@ public class AltaMateriaPrimaFrame extends javax.swing.JFrame {
         txtNombre.setText("");
         txtDensidad.setText("");
         txtPrecio.setText("");
+        txtProveedor.setText("");
     }
     
     public void cargarTabla(){
@@ -307,15 +345,15 @@ public class AltaMateriaPrimaFrame extends javax.swing.JFrame {
         modeloTabla.setRowCount(0);
         
         // Agrega los nombres de las columnas
-        modeloTabla.setColumnIdentifiers(new Object[]{"#", "Nombre", "N_Parte", "Precio", "Moneda", "Densidad"});
+        modeloTabla.setColumnIdentifiers(new Object[]{"#", "Nombre", "Proveedor", "Precio", "Moneda", "Densidad"});
         
-        String codsql = "select Id_MP as #MP,Nombre,N_Parte,Precio,Moneda,Densidad from MP where Activo = 1";
+        String codsql = "select Id_MP as #MP,Nombre,Proveedor,Precio,Moneda,Densidad from MP where Activo = 1 ORDER BY Id_MP DESC";
         PreparedStatement ps;
         ResultSet rs;
         ResultSetMetaData rsmd;
         int columnas;
         
-        int[]anchos = {10,350,40,40,40,40};
+        int[]anchos = {10,300,90,40,40,40};
         for(int i = 0; i < dgvprecios.getColumnCount(); i++){
             dgvprecios.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
@@ -377,11 +415,13 @@ public class AltaMateriaPrimaFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbMoneda;
     private javax.swing.JTable dgvprecios;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -389,5 +429,6 @@ public class AltaMateriaPrimaFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNoparte;
     private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtProveedor;
     // End of variables declaration//GEN-END:variables
 }

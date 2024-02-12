@@ -6,6 +6,7 @@
 package MenuItems;
 
 import com.mycompany.intersisacotizador_ver2.Conexion;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,6 +32,8 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         setLocation(getX(), 75);
         conexion = new Conexion();
         cargarDatos();
+        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appicon.png")));
     }
 
     /**
@@ -59,15 +62,19 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         rbVendedor = new javax.swing.JRadioButton();
         rbCliente = new javax.swing.JRadioButton();
         rbAno = new javax.swing.JRadioButton();
+        rbEstablo = new javax.swing.JRadioButton();
         cbvendedor = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         cbano = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        tbEstablo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         dgvcoti = new javax.swing.JTable();
         btnVerEditar = new javax.swing.JButton();
         btnActivar = new javax.swing.JButton();
         btnInactivar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -158,27 +165,36 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
             }
         });
 
+        rbEstablo.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        rbEstablo.setText("Establo");
+        rbEstablo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbEstabloItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addComponent(rbCliente)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
                         .addComponent(rbActivas)
-                        .addGap(42, 42, 42)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(rbInactivas))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(rbCliente)
-                        .addGap(18, 18, 18)
                         .addComponent(rbEtapa)
                         .addGap(18, 18, 18)
                         .addComponent(rbVendedor)
                         .addGap(18, 18, 18)
                         .addComponent(rbAno)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(rbEstablo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +208,8 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
                     .addComponent(rbEtapa)
                     .addComponent(rbVendedor)
                     .addComponent(rbCliente)
-                    .addComponent(rbAno))
+                    .addComponent(rbAno)
+                    .addComponent(rbEstablo))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -208,38 +225,48 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel6.setText("Año");
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        jLabel7.setText("Establo");
+
+        tbEstablo.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        tbEstablo.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbetapa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbvendedor, 0, 200, Short.MAX_VALUE)
-                    .addComponent(cbano, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(52, 52, 52))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(468, 468, 468)
-                .addComponent(btnfiltrar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tbEstablo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbetapa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbvendedor, 0, 200, Short.MAX_VALUE)
+                            .addComponent(cbano, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(52, 52, 52))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(btnfiltrar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,7 +275,9 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(tbEstablo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,13 +286,14 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(jLabel2)))
                         .addGap(18, 18, 18)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(cbetapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbvendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbetapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbvendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(btnfiltrar)
                 .addGap(21, 21, 21))
@@ -274,11 +304,11 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Ncot", "Fecha", "Clientes", "Etapa", "Descripción", "Vendedor"
+                "Ncot", "Fecha", "Clientes", "Etapa", "Descripción", "Vendedor", "Establo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -322,6 +352,8 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoinsa.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -333,6 +365,8 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
+                        .addGap(237, 237, 237)
+                        .addComponent(jLabel8)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnVerEditar)
@@ -345,12 +379,17 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel8))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVerEditar)
@@ -386,7 +425,7 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         modeloTabla.setRowCount(0);
         
         // Agrega los nombres de las columnas
-        modeloTabla.setColumnIdentifiers(new Object[]{"NCot", "Fecha", "Cliente", "Etapa", "Descripción", "Vendedor"});
+        modeloTabla.setColumnIdentifiers(new Object[]{"NCot", "Fecha", "Cliente", "Etapa", "Descripción", "Vendedor", "Establo"});
         
         String codsql = "";
         Object nombre1 = cbcliente.getSelectedItem();
@@ -397,106 +436,221 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         String nombreVe = nombre3.toString();
         Object nombre4 = cbano.getSelectedItem();
         String nombreFecha = nombre4.toString();
+        String nombreEstablo = tbEstablo.getText();
         //---ACTIVAS---
-        if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
-            /*codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";*/
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()&& rbEstablo.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' order by Cotizacion.Id_Cotizacion Desc";
         }
+        
+        //------------------------------4---------------------------------------
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
+            /*codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";*/
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEstablo.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected() && rbEstablo.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbEstablo.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEstablo.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        
+        //------------------------------3---------------------------------------
         else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbAno.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbCliente.isSelected() && rbVendedor.isSelected() && rbActivas.isSelected() && rbAno.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected() && rbEstablo.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEstablo.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEstablo.isSelected() && rbActivas.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected() && rbEstablo.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEtapa.isSelected() && rbActivas.isSelected() && rbEstablo.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEstablo.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        
+        
+        //------------------------------2---------------------------------------
         else if(rbCliente.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbEtapa.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbCliente.isSelected() && rbAno.isSelected() && rbActivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbEtapa.isSelected() && rbAno.isSelected() && rbActivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Etapa.Nombre='"+ nombreEt+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Etapa.Nombre='"+ nombreEt+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbVendedor.isSelected() && rbAno.isSelected() && rbActivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
+        else if(rbCliente.isSelected() && rbActivas.isSelected() && rbEstablo.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEstablo.isSelected() && rbEtapa.isSelected() && rbActivas.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND Etapa.Nombre='"+ nombreEt+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEstablo.isSelected() && rbActivas.isSelected() && rbVendedor.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEstablo.isSelected() && rbAno.isSelected() && rbActivas.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        
+        //------------------------------1---------------------------------------
         else if(rbCliente.isSelected() && rbActivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbEtapa.isSelected() && rbActivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Etapa.Nombre='"+ nombreEt+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Etapa.Nombre='"+ nombreEt+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbVendedor.isSelected() && rbActivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbAno.isSelected() && rbActivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbActivas.isSelected() && rbEstablo.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbActivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 1 order by Cotizacion.Id_Cotizacion Desc";
         }
         
         //---INACTIVAS---
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()&& rbEstablo.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        
+        //------------------------------4---------------------------------------
         else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
             /*codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, Cotizacion.Vendedor from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente where Cotizacion.Activo = 1 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Vendedor='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";*/
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
+        else if(rbEstablo.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected() && rbEstablo.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected() && rbEstablo.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEstablo.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        
+        //------------------------------3---------------------------------------
         else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected() && rbAno.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbCliente.isSelected() && rbVendedor.isSelected() && rbInactivas.isSelected() && rbAno.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbEtapa.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
+        else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected() && rbEstablo.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEstablo.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbCliente.isSelected() && rbEstablo.isSelected() && rbInactivas.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEtapa.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected() && rbEstablo.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEtapa.isSelected() && rbInactivas.isSelected() && rbEstablo.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Etapa.Nombre='"+ nombreEt+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEstablo.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected() && rbAno.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        
+        
+        //------------------------------2---------------------------------------
         else if(rbCliente.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbEtapa.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Etapa.Nombre='"+ nombreEt+ "' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbCliente.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Etapa.Nombre='"+ nombreEt+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbCliente.isSelected() && rbAno.isSelected() && rbInactivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbEtapa.isSelected() && rbAno.isSelected() && rbInactivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Etapa.Nombre='"+ nombreEt+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Etapa.Nombre='"+ nombreEt+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbVendedor.isSelected() && rbAno.isSelected() && rbInactivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND vendedores.nombre='"+ nombreVe+ "' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
         }
+        else if(rbCliente.isSelected() && rbInactivas.isSelected() && rbEstablo.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEstablo.isSelected() && rbEtapa.isSelected() && rbInactivas.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND Etapa.Nombre='"+ nombreEt+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEstablo.isSelected() && rbInactivas.isSelected() && rbVendedor.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbEstablo.isSelected() && rbAno.isSelected() && rbInactivas.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre,Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        
+        //------------------------------1---------------------------------------
         else if(rbCliente.isSelected() && rbInactivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Clientes.Nombre='"+ nombreCli+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbEtapa.isSelected() && rbInactivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Etapa.Nombre='"+ nombreEt+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Etapa.Nombre='"+ nombreEt+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbVendedor.isSelected() && rbInactivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND vendedores.nombre='"+ nombreVe+ "' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbAno.isSelected() && rbInactivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND (LEFT(Cotizacion.Fecha,4)='"+ nombreFecha+ "' OR Cotizacion.Descripcion LIKE '% " +nombreFecha + "%') order by Cotizacion.Id_Cotizacion Desc";
+        }
+        else if(rbInactivas.isSelected() && rbEstablo.isSelected()){
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 AND Cotizacion.Establo LIKE '%" + nombreEstablo + "%' order by Cotizacion.Id_Cotizacion Desc";
         }
         else if(rbInactivas.isSelected()){
-            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 order by Cotizacion.Id_Cotizacion Desc";
+            codsql = "select Cotizacion.Id_Cotizacion as NCot,Cotizacion.Fecha,Clientes.Nombre as Cliente,Etapa.Nombre as Etapa,Cotizacion.Descripcion, vendedores.nombre, Cotizacion.Establo from Cotizacion inner join Etapa on Cotizacion.Id_Etapa=Etapa.Id_Etapa inner join Clientes on Cotizacion.Id_Cliente=Clientes.Id_Cliente left join vendedores ON Cotizacion.Id_Vendedor=vendedores.id_vendedor where Cotizacion.Activo = 0 order by Cotizacion.Id_Cotizacion Desc";
         }
         
         PreparedStatement ps;
@@ -504,7 +658,7 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
         ResultSetMetaData rsmd;
         int columnas;
         
-        int[]anchos = {5,20,20,100,400,100};
+        int[]anchos = {5,20,20,100,400,100,100};
         for(int i = 0; i < dgvcoti.getColumnCount(); i++){
             dgvcoti.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
@@ -637,6 +791,14 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
             cbano.setEnabled(false);
     }//GEN-LAST:event_rbAnoItemStateChanged
 
+    private void rbEstabloItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbEstabloItemStateChanged
+        // TODO add your handling code here:
+        if(rbEstablo.isSelected())
+            tbEstablo.setEnabled(true);
+        else
+            tbEstablo.setEnabled(false);
+    }//GEN-LAST:event_rbEstabloItemStateChanged
+
     private void cargarDatos(){
         
         PreparedStatement ps, ps1, ps2, ps3;
@@ -740,6 +902,8 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -747,8 +911,10 @@ public class ListadoCotizacionFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbActivas;
     private javax.swing.JRadioButton rbAno;
     private javax.swing.JRadioButton rbCliente;
+    private javax.swing.JRadioButton rbEstablo;
     private javax.swing.JRadioButton rbEtapa;
     private javax.swing.JRadioButton rbInactivas;
     private javax.swing.JRadioButton rbVendedor;
+    private javax.swing.JTextField tbEstablo;
     // End of variables declaration//GEN-END:variables
 }

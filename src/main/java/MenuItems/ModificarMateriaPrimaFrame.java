@@ -5,6 +5,7 @@
 package MenuItems;
 
 import com.mycompany.intersisacotizador_ver2.Conexion;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,6 +27,7 @@ public class ModificarMateriaPrimaFrame extends javax.swing.JFrame {
         //txtNombreMod.setText(idMatPrim);
         conexion = new Conexion();
         cargarDatos();
+        setIcon();
     }
 
     /**
@@ -51,6 +53,8 @@ public class ModificarMateriaPrimaFrame extends javax.swing.JFrame {
         txtDensidadMod = new javax.swing.JTextField();
         cbMonedaMod = new javax.swing.JComboBox<>();
         btnModificar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtProveedorMod = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -97,7 +101,14 @@ public class ModificarMateriaPrimaFrame extends javax.swing.JFrame {
 
         txtPrecioMod.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         txtPrecioMod.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtPrecioMod.setToolTipText("Modificar en ventana Precios");
         txtPrecioMod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtPrecioMod.setEnabled(false);
+        txtPrecioMod.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtPrecioModMouseClicked(evt);
+            }
+        });
         txtPrecioMod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPrecioModActionPerformed(evt);
@@ -115,6 +126,8 @@ public class ModificarMateriaPrimaFrame extends javax.swing.JFrame {
 
         cbMonedaMod.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         cbMonedaMod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DLL", "MN" }));
+        cbMonedaMod.setToolTipText("Modificar en ventana Precios");
+        cbMonedaMod.setEnabled(false);
 
         btnModificar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         btnModificar.setText("Modificar");
@@ -124,6 +137,15 @@ public class ModificarMateriaPrimaFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        jLabel7.setText("Proveedor");
+
+        txtProveedorMod.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txtProveedorMod.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtProveedorMod.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtProveedorMod.setMinimumSize(new java.awt.Dimension(64, 25));
+        txtProveedorMod.setPreferredSize(new java.awt.Dimension(64, 25));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -131,48 +153,54 @@ public class ModificarMateriaPrimaFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cbMonedaMod, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(95, 95, 95))
-                            .addComponent(txtNoparteMod, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombreMod, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPrecioMod, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDensidadMod, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbMonedaMod, 0, 202, Short.MAX_VALUE)
+                        .addGap(123, 123, 123))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(btnModificar)
-                        .addGap(108, 108, 108)))
-                .addGap(28, 28, 28))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtProveedorMod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNoparteMod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                            .addComponent(txtNombreMod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                            .addComponent(txtPrecioMod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                            .addComponent(txtDensidadMod, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(184, 184, 184)
+                .addComponent(btnModificar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNoparteMod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNombreMod, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtNoparteMod, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel7)
+                    .addComponent(txtProveedorMod, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDensidadMod, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPrecioMod, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbMonedaMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
@@ -245,6 +273,7 @@ public class ModificarMateriaPrimaFrame extends javax.swing.JFrame {
 
         String nombreMod = txtNombreMod.getText();
         String noParteMod = txtNoparteMod.getText();
+        String proveedorMod = txtProveedorMod.getText();
         String precioMod = txtPrecioMod.getText();
         String densidadMod = txtDensidadMod.getText();
         Object moneda = cbMonedaMod.getSelectedItem();
@@ -253,13 +282,14 @@ public class ModificarMateriaPrimaFrame extends javax.swing.JFrame {
         if(!txtNombreMod.equals("")){
             try{
                 con = conexion.establecerConexion();
-                PreparedStatement ps = con.prepareStatement("UPDATE MP SET Nombre=?, N_Parte=?, Precio=?, Moneda=?, Densidad=? WHERE id_Mp=?");
+                PreparedStatement ps = con.prepareStatement("UPDATE MP SET Nombre=?, N_Parte=?, Precio=?, Moneda=?, Densidad=?, Proveedor=? WHERE id_Mp=?");
                 ps.setString(1, nombreMod);
                 ps.setString(2, noParteMod);
                 ps.setString(3, precioMod);
                 ps.setString(4, monedaMod);
                 ps.setString(5, densidadMod);
-                ps.setInt(6, id);
+                ps.setString(6, proveedorMod);
+                ps.setInt(7, id);
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Materia prima modificada");
                 limpiar();
@@ -272,6 +302,11 @@ public class ModificarMateriaPrimaFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ingrese todos los datos antes de guardar");
         }
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void txtPrecioModMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPrecioModMouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Modificar en ventana Precios");
+    }//GEN-LAST:event_txtPrecioModMouseClicked
 
     public void limpiar(){
         txtNombreMod.setText("");
@@ -292,6 +327,7 @@ public class ModificarMateriaPrimaFrame extends javax.swing.JFrame {
                 {
                     txtNombreMod.setText(rs.getString("Nombre"));
                     txtNoparteMod.setText(rs.getString("N_Parte"));
+                    txtProveedorMod.setText(rs.getString("Proveedor"));
                     txtDensidadMod.setText(rs.getString("Densidad"));
                     txtPrecioMod.setText(rs.getString("Precio"));
                     if (rs.getString("Moneda").equals("DLL"))
@@ -306,6 +342,10 @@ public class ModificarMateriaPrimaFrame extends javax.swing.JFrame {
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, e.toString());
         }
+    }
+    
+    private void setIcon(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appicon.png")));
     }
     
     public static void main(String args[]) {
@@ -349,11 +389,13 @@ public class ModificarMateriaPrimaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtDensidadMod;
     private javax.swing.JTextField txtNombreMod;
     private javax.swing.JTextField txtNoparteMod;
     private javax.swing.JTextField txtPrecioMod;
+    private javax.swing.JTextField txtProveedorMod;
     // End of variables declaration//GEN-END:variables
 }

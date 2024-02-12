@@ -6,6 +6,7 @@
 package MenuItems;
 
 import com.mycompany.intersisacotizador_ver2.Conexion;
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -50,6 +51,8 @@ public class ClientesFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setLocation(getX(), 75);
+        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appicon.png")));
         
         try {
             if (con != null && !con.isClosed()) {
@@ -130,6 +133,7 @@ public class ClientesFrame extends javax.swing.JFrame {
         });
 
         btnguardar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/guardar.png"))); // NOI18N
         btnguardar.setText("Guardar");
         btnguardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

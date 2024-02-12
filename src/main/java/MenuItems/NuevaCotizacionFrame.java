@@ -7,6 +7,7 @@ package MenuItems;
 
 import com.mycompany.intersisacotizador_ver2.Conexion;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
@@ -40,6 +41,9 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
     private int changedRow = 0;
     public boolean simil = true;  //para ver si da mil
     
+    private int clickCount = 0;
+    private static final int MAX_CLICKS = 5;
+    
     int xMouse, yMouse;
     public NuevaCotizacionFrame() {
         initComponents();
@@ -47,6 +51,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         setLocation(getX(), 75);
         conexion = new Conexion();
         cargarDatos();
+        setIcon();
         
         
         dgvCalculoBatch.addKeyListener(new KeyAdapter() {
@@ -102,6 +107,8 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         txtFecha = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         cbVendedor = new javax.swing.JComboBox<>();
+        jLabel15 = new javax.swing.JLabel();
+        tbEstablo = new javax.swing.JTextField();
         JPanelBatch = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -175,9 +182,10 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         tbUtilidadDeseada = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setResizable(false);
+        setPreferredSize(new java.awt.Dimension(1145, 955));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setDoubleBuffered(false);
@@ -192,15 +200,15 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel3.setText("Cliente");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         jLabel2.setText("Datos Generales");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel4.setText("Etapa");
 
-        cbcliente.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        cbcliente.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
 
-        cbetapa.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        cbetapa.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel5.setText("No. Cotización");
@@ -209,10 +217,11 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jLabel6.setText("Fecha");
 
         textBox2.setBackground(new java.awt.Color(204, 204, 204));
-        textBox2.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        textBox2.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         textBox2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnguardar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/guardar.png"))); // NOI18N
         btnguardar.setText("Guardar");
         btnguardar.setEnabled(false);
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
@@ -222,6 +231,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         });
 
         btnCalcular.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnCalcular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/calcular.png"))); // NOI18N
         btnCalcular.setText("Calcular");
         btnCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,18 +240,23 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         });
 
         txtFecha.setBackground(new java.awt.Color(204, 204, 204));
-        txtFecha.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txtFecha.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         txtFecha.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel8.setText("Vendedor");
 
-        cbVendedor.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        cbVendedor.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         cbVendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbVendedorActionPerformed(evt);
             }
         });
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        jLabel15.setText("Establo");
+
+        tbEstablo.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout JPanelDatosGeneralesLayout = new javax.swing.GroupLayout(JPanelDatosGenerales);
         JPanelDatosGenerales.setLayout(JPanelDatosGeneralesLayout);
@@ -250,7 +265,6 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelDatosGeneralesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
                         .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -259,24 +273,30 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                         .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbetapa, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(171, 171, 171)
+                        .addGap(60, 60, 60)
                         .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(21, 21, 21)
+                            .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(67, 67, 67)
                         .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(99, 99, 99)
-                .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
-                        .addComponent(cbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCalcular))
-                    .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnguardar)))
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel8)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(tbEstablo)
+                    .addComponent(cbVendedor, 0, 180, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnguardar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCalcular, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         JPanelDatosGeneralesLayout.setVerticalGroup(
@@ -286,9 +306,9 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textBox2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel3)
                                 .addComponent(cbcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,11 +323,13 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                     .addGroup(JPanelDatosGeneralesLayout.createSequentialGroup()
                         .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnguardar)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel8)
+                            .addComponent(cbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(JPanelDatosGeneralesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCalcular)
-                            .addComponent(cbVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel15)
+                            .addComponent(tbEstablo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -315,7 +337,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         JPanelBatch.setBackground(new java.awt.Color(252, 252, 252));
         JPanelBatch.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         jLabel9.setText("Batch");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
@@ -328,12 +350,12 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jLabel13.setText("Batch");
 
         txt_volumen.setBackground(new java.awt.Color(204, 204, 204));
-        txt_volumen.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txt_volumen.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         txt_volumen.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         txt_volumen.setText("0.00");
         txt_volumen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        tbPrecioBatchExtra.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        tbPrecioBatchExtra.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         tbPrecioBatchExtra.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tbPrecioBatchExtra.setText("1");
         tbPrecioBatchExtra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -344,7 +366,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         });
 
         txt_batch.setBackground(new java.awt.Color(204, 204, 204));
-        txt_batch.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txt_batch.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         txt_batch.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_batch.setText("0");
         txt_batch.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -353,13 +375,13 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jLabel19.setText("de");
 
         txt_tamaño.setBackground(new java.awt.Color(204, 204, 204));
-        txt_tamaño.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txt_tamaño.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         txt_tamaño.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_tamaño.setText("0");
         txt_tamaño.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         txt_total.setBackground(new java.awt.Color(204, 204, 204));
-        txt_total.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txt_total.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         txt_total.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txt_total.setText("0");
         txt_total.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -432,7 +454,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel20)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(JPanelBatchLayout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tbBatchExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(102, 102, 102))))
@@ -444,7 +466,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 .addGroup(JPanelBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(tbBatchExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JPanelBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(JPanelBatchLayout.createSequentialGroup()
                         .addGroup(JPanelBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -469,16 +491,16 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                         .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(jLabel19))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jPanelEnsacado.setBackground(new java.awt.Color(252, 252, 252));
         jPanelEnsacado.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         jLabel10.setText("Ensacado");
 
-        chksuper.setFont(new java.awt.Font("Segoe UI Light", 0, 11)); // NOI18N
+        chksuper.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         chksuper.setText("Supersaco");
         chksuper.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -486,7 +508,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             }
         });
 
-        chk20.setFont(new java.awt.Font("Segoe UI Light", 0, 11)); // NOI18N
+        chk20.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         chk20.setText("Saco 20");
         chk20.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -494,7 +516,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             }
         });
 
-        chk30.setFont(new java.awt.Font("Segoe UI Light", 0, 11)); // NOI18N
+        chk30.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         chk30.setText("Saco 30");
         chk30.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -502,7 +524,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             }
         });
 
-        chkinter.setFont(new java.awt.Font("Segoe UI Light", 0, 11)); // NOI18N
+        chkinter.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         chkinter.setText("Insagro");
         chkinter.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -510,7 +532,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             }
         });
 
-        chkterceria.setFont(new java.awt.Font("Segoe UI Light", 0, 11)); // NOI18N
+        chkterceria.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         chkterceria.setText("Terciaria");
         chkterceria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -519,7 +541,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         });
 
         txt_kilos.setBackground(new java.awt.Color(204, 204, 204));
-        txt_kilos.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txt_kilos.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         txt_kilos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txt_kilos.setText("0");
         txt_kilos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -531,7 +553,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jLabel27.setText("Sacos de");
 
         txt_cantidadsacos.setBackground(new java.awt.Color(204, 204, 204));
-        txt_cantidadsacos.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txt_cantidadsacos.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         txt_cantidadsacos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txt_cantidadsacos.setText("0");
         txt_cantidadsacos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -543,11 +565,6 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             .addGroup(jPanelEnsacadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelEnsacadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelEnsacadoLayout.createSequentialGroup()
-                        .addGroup(jPanelEnsacadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chk30)
-                            .addComponent(jLabel10))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelEnsacadoLayout.createSequentialGroup()
                         .addGroup(jPanelEnsacadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelEnsacadoLayout.createSequentialGroup()
@@ -566,7 +583,12 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(chkinter)))
                         .addGap(12, 12, 12)
-                        .addComponent(jLabel26)))
+                        .addComponent(jLabel26))
+                    .addGroup(jPanelEnsacadoLayout.createSequentialGroup()
+                        .addGroup(jPanelEnsacadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chk30)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelEnsacadoLayout.setVerticalGroup(
@@ -574,15 +596,15 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             .addGroup(jPanelEnsacadoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelEnsacadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chksuper)
                     .addComponent(chkinter))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelEnsacadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chk20)
                     .addComponent(chkterceria))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(chk30)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelEnsacadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -597,13 +619,14 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jPanelMateriaPrima.setBackground(new java.awt.Color(252, 252, 252));
         jPanelMateriaPrima.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel29.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        jLabel29.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         jLabel29.setText("Materia Prima");
 
-        cbMatPrim.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        cbMatPrim.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         cbMatPrim.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnagregarmat.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        btnagregarmat.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnagregarmat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agregar.png"))); // NOI18N
         btnagregarmat.setText("Agregar");
         btnagregarmat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -611,17 +634,17 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             }
         });
 
-        dgvCalculoBatch.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        dgvCalculoBatch.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         dgvCalculoBatch.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Número", "Materia Prima", "Cantidad", "PU", "Moneda", "DLLS", "Densidad", "", ""
+                "Proveedor", "Materia Prima", "Cantidad", "PU", "Moneda", "DLLS", "Densidad", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true, true, true, true
+                false, false, true, false, true, true, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -674,6 +697,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             dgvCalculoBatch.getColumnModel().getColumn(7).setMaxWidth(1);
         }
 
+        btnActualizarMateriaPrima.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnActualizarMateriaPrima.setText("Ac. Mat. Prim.");
         btnActualizarMateriaPrima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -688,16 +712,16 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             .addGroup(jPanelMateriaPrimaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelMateriaPrimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanelMateriaPrimaLayout.createSequentialGroup()
                         .addGroup(jPanelMateriaPrimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel29)
                             .addGroup(jPanelMateriaPrimaLayout.createSequentialGroup()
                                 .addComponent(cbMatPrim, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnagregarmat)
                                 .addGap(61, 61, 61)
-                                .addComponent(btnActualizarMateriaPrima)))
+                                .addComponent(btnActualizarMateriaPrima))
+                            .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -706,26 +730,31 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             .addGroup(jPanelMateriaPrimaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel29)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelMateriaPrimaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbMatPrim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnagregarmat)
                     .addComponent(btnActualizarMateriaPrima))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
 
         jPanelGramosXVaca.setBackground(new java.awt.Color(252, 252, 252));
         jPanelGramosXVaca.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel30.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        jLabel30.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         jLabel30.setText("Gramos por Vaca");
 
-        tbGramosPVaca.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        tbGramosPVaca.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         tbGramosPVaca.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        tbGramosPVaca.setText("0");
+        tbGramosPVaca.setText("0.00");
         tbGramosPVaca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tbGramosPVaca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tbGramosPVacaFocusGained(evt);
+            }
+        });
         tbGramosPVaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbGramosPVacaActionPerformed(evt);
@@ -736,21 +765,21 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jPanelGramosXVaca.setLayout(jPanelGramosXVacaLayout);
         jPanelGramosXVacaLayout.setHorizontalGroup(
             jPanelGramosXVacaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelGramosXVacaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel30)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGramosXVacaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(150, Short.MAX_VALUE)
                 .addComponent(tbGramosPVaca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(jPanelGramosXVacaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelGramosXVacaLayout.setVerticalGroup(
             jPanelGramosXVacaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelGramosXVacaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel30)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tbGramosPVaca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -758,10 +787,10 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jPanelCostos.setBackground(new java.awt.Color(252, 252, 252));
         jPanelCostos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel31.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         jLabel31.setText("Costos");
 
-        tbMezclado.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        tbMezclado.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         tbMezclado.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tbMezclado.setText("0.00");
         tbMezclado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -787,7 +816,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jLabel36.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel36.setText("Participación");
 
-        tbTarima.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        tbTarima.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         tbTarima.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tbTarima.setText("0.00");
         tbTarima.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -802,7 +831,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             }
         });
 
-        tbTipodeCambio.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        tbTipodeCambio.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         tbTipodeCambio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tbTipodeCambio.setText("0.00");
         tbTipodeCambio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -820,7 +849,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             }
         });
 
-        tbFlete.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        tbFlete.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         tbFlete.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tbFlete.setText("0.00");
         tbFlete.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -835,7 +864,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             }
         });
 
-        tbParticipacion.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        tbParticipacion.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         tbParticipacion.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         tbParticipacion.setText("0.00");
         tbParticipacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -874,15 +903,14 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                         .addComponent(tbFlete, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelCostosLayout.createSequentialGroup()
                         .addComponent(jLabel36)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cbpart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tbParticipacion, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelCostosLayout.createSequentialGroup()
-                        .addComponent(jLabel31)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanelCostosLayout.createSequentialGroup()
-                        .addComponent(jLabel32)
+                        .addGroup(jPanelCostosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel32, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tbMezclado, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -892,7 +920,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             .addGroup(jPanelCostosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel31)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelCostosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tbMezclado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel32))
@@ -919,7 +947,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jPanelTotales.setBackground(new java.awt.Color(252, 252, 252));
         jPanelTotales.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel37.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        jLabel37.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         jLabel37.setText("Totales");
 
         jLabel38.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
@@ -941,32 +969,32 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jLabel43.setText("Total USD");
 
         lblEnsacado.setBackground(new java.awt.Color(204, 204, 204));
-        lblEnsacado.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        lblEnsacado.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         lblEnsacado.setText("0.00");
         lblEnsacado.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         txttotalbatch.setBackground(new java.awt.Color(204, 204, 204));
-        txttotalbatch.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txttotalbatch.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         txttotalbatch.setText("0.00");
         txttotalbatch.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblIngredientes.setBackground(new java.awt.Color(204, 204, 204));
-        lblIngredientes.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        lblIngredientes.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         lblIngredientes.setText("0.00");
         lblIngredientes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblParticipacion.setBackground(new java.awt.Color(204, 204, 204));
-        lblParticipacion.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        lblParticipacion.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         lblParticipacion.setText("0.00");
         lblParticipacion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblTotal.setBackground(new java.awt.Color(204, 204, 204));
-        lblTotal.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        lblTotal.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         lblTotal.setText("0.00");
         lblTotal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblSubtotal.setBackground(new java.awt.Color(204, 204, 204));
-        lblSubtotal.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        lblSubtotal.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         lblSubtotal.setText("0.00");
         lblSubtotal.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -998,12 +1026,12 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelTotalesLayout.createSequentialGroup()
-                        .addComponent(jLabel37)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanelTotalesLayout.createSequentialGroup()
                         .addComponent(jLabel38)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelTotalesLayout.createSequentialGroup()
+                        .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelTotalesLayout.setVerticalGroup(
@@ -1011,7 +1039,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             .addGroup(jPanelTotalesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel37)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelTotalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelTotalesLayout.createSequentialGroup()
                         .addComponent(jLabel38)
@@ -1045,10 +1073,11 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jPanelObservaciones.setBackground(new java.awt.Color(252, 252, 252));
         jPanelObservaciones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel50.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        jLabel50.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         jLabel50.setText("Observaciones");
 
         textBox3.setColumns(20);
+        textBox3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         textBox3.setLineWrap(true);
         textBox3.setRows(5);
         jScrollPane2.setViewportView(textBox3);
@@ -1060,10 +1089,10 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             .addGroup(jPanelObservacionesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelObservacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                     .addGroup(jPanelObservacionesLayout.createSequentialGroup()
-                        .addComponent(jLabel50)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
+                        .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelObservacionesLayout.setVerticalGroup(
@@ -1071,7 +1100,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             .addGroup(jPanelObservacionesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel50)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1079,10 +1108,10 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(252, 252, 252));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI Light", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI Light", 1, 16)); // NOI18N
         jLabel7.setText("Divisor deseado");
 
-        tbUtilidadDeseada.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        tbUtilidadDeseada.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         tbUtilidadDeseada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1091,20 +1120,22 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tbUtilidadDeseada, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tbUtilidadDeseada)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jLabel7)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tbUtilidadDeseada, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoinsa.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1115,65 +1146,70 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
+                        .addGap(216, 216, 216)
+                        .addComponent(jLabel14)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(JPanelDatosGenerales, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JPanelDatosGenerales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(JPanelBatch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jPanelEnsacado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jPanelMateriaPrima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(23, 23, 23)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jPanelMateriaPrima, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanelObservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanelTotales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanelCostos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanelGramosXVaca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(11, 11, 11))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jPanelTotales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jPanelObservaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jPanelCostos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jPanelGramosXVaca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JPanelDatosGenerales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanelEnsacado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(JPanelBatch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelMateriaPrima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanelGramosXVaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelCostos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelTotales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanelObservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelObservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(JPanelBatch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanelEnsacado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanelMateriaPrima, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1109, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 875, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -1218,8 +1254,8 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         String nombre = cbMatPrim.getSelectedItem().toString();
         
         //int[]anchos = {20,200,40,10,40,20,30,0,5};
-        int[]anchosMax = {60,360,65,45,60,65,70,1,20};
-        int[]anchosMin = {50,300,55,35,40,50,70,1,10};
+        int[]anchosMax = {150,360,65,45,60,65,70,1,20};
+        int[]anchosMin = {100,300,55,35,40,50,70,1,10};
         for(int i = 0; i < dgvCalculoBatch.getColumnCount(); i++){
             //dgvCalculoBatch.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
             dgvCalculoBatch.getColumnModel().getColumn(i).setMaxWidth(anchosMax[i]);
@@ -1238,12 +1274,13 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 while(rs.next()){
                     Object[] fila = new Object[columnas];
                     //for(int indice = 0; indice < columnas; indice++){
-                        fila[0] = rs.getObject(0 + 1);
+                        //fila[0] = rs.getObject(0 + 1);
+                        fila[0] = rs.getObject(7 + 1);
                         fila[1] = rs.getObject(1 + 1);
                         fila[3] = rs.getObject(3 + 1);
                         fila[4] = rs.getObject(4 + 1);
                         fila[6] = rs.getObject(5 + 1);
-                        //fila[7] = rs.getObject(6 + 1);
+                        fila[7] = rs.getObject(0 + 1);
                     //}
                     modeloTabla.addRow(fila);
                     addRows();
@@ -1399,7 +1436,15 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         String cbpart1 = participacion.toString();
         Object etapa = cbetapa.getSelectedItem();
         String cboxetapa = etapa.toString();
+        
+        boolean flag = false;
 
+        if (dgvCalculoBatch.getRowCount() <= 1) {
+            // Show a warning message
+            JOptionPane.showMessageDialog(null, "Favor de insertar más de 1 ingrediente.",
+                    "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
         try
         {
             if(!cboxclientes.equals("") && !cbpart1.equals("") && !cboxetapa.equals("") &&((chk20.isSelected() || chk30.isSelected() || chksuper.isSelected())
@@ -1410,7 +1455,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             {
                 /*String num = dgvCalculoBatch.getValueAt(i, dgvCalculoBatch.getColumnModel().getColumnIndex(0)).toString();
                 String nom = dgvCalculoBatch.getValueAt(i, dgvCalculoBatch.getColumnModel().getColumnIndex(1)).toString();*/
-                String num = dgvCalculoBatch.getValueAt(i, 0).toString();
+                String num = dgvCalculoBatch.getValueAt(i, 7).toString();
                 String nom = dgvCalculoBatch.getValueAt(i, 1).toString();
                 /*BigDecimal can = new BigDecimal(dgvCalculoBatch.getValueAt(i, dgvCalculoBatch.getColumnModel().getColumnIndex("Cantidad")).toString());
                 BigDecimal den = new BigDecimal(dgvCalculoBatch.getValueAt(i, dgvCalculoBatch.getColumnModel().getColumnIndex("Densidad")).toString());*/             
@@ -1456,7 +1501,8 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 //(Convert.ToDecimal(txt_volumen.Text) * Convert.ToDecimal(1000.00 / 271.00)) / 100;
                 BigDecimal hundred = new BigDecimal("100");
                 //CAMBIAR EL 1000 por 500
-                BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 271.00))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
+                //AQUÍ LE CAMBIÉ, TAMBIEN ERAN 271
+                BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 500.00))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
                 //BigDecimal vol = (result.multiply(BigDecimal.valueOf(1000.00 / 500))).divide(hundred, 4, BigDecimal.ROUND_HALF_UP);
                 BigDecimal vol2 = vol.setScale(0, RoundingMode.FLOOR).add(BigDecimal.ONE);
                 txt_batch.setText(vol2.toString());
@@ -1467,12 +1513,12 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                     txt_volumen.setBackground(Color.RED);
 
                     //AQUÍ LE CAMBIÉ, ERAN 271 EN LOS DOS DE 450
-                    for(int i = 271; i >= 1; i = i - 10)
+                    for(int i = 500; i >= 1; i = i - 10)
                     {
                         BigDecimal batch = new BigDecimal("1000.00").divide(BigDecimal.valueOf(i), RoundingMode.HALF_UP);
                         BigDecimal batch2 = new BigDecimal("1000.00").divide(BigDecimal.valueOf(i - 10), RoundingMode.HALF_UP);
 
-                        if(i == 271)
+                        if(i == 500)
                         {
                             if (vol.compareTo(BigDecimal.ZERO) > 0 && vol.compareTo(batch) <= 0){
                                 txt_tamaño.setText(Integer.toString(i));
@@ -1498,12 +1544,13 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                     txt_volumen.setOpaque(true);
                     txt_volumen.setBackground(Color.LIGHT_GRAY);
                     //AQUÍ TAMBIÉN LE CAMBIÉ, DECÍA 271
-                    txt_tamaño.setText("271");
+                    txt_tamaño.setText("500");
                 }
                 BigDecimal batch = new BigDecimal(txt_batch.getText());
                 BigDecimal tamaño = new BigDecimal(txt_tamaño.getText());
                 BigDecimal total = batch.multiply(tamaño);
                 txt_total.setText(total.toString());
+                flag = true;
             }
             else
             {
@@ -1529,6 +1576,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 //precmat = new BigDecimal(dgvCalculoBatch.getValueAt(i, 5).toString()); ESTE SE USABA ANTES
                 totalmat = totalmat.add(precmat);
             }
+            totalmat = totalmat.setScale(4, RoundingMode.HALF_UP);
             lblIngredientes.setText(totalmat.toString());
             BigDecimal preciosaco = BigDecimal.ZERO;
 
@@ -1547,6 +1595,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                         while(rs.next())
                         {
                             preciosaco = new BigDecimal(rs.getString("precio"));
+                            preciosaco = preciosaco.setScale(4, RoundingMode.HALF_UP);
                             lblEnsacado.setText(preciosaco.toString());
                         }
                         rs.close();
@@ -1562,6 +1611,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                         while(rs.next())
                         {
                             preciosaco = new BigDecimal(rs.getString("precio"));
+                            preciosaco = preciosaco.setScale(4, RoundingMode.HALF_UP);
                             lblEnsacado.setText(preciosaco.toString());
                         }
                         rs.close();
@@ -1575,7 +1625,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             {
                 if(simil == true)
                 {
-                    int tamano = Integer.parseInt(txt_tamaño.getText().substring(0,2));
+                    int tamano = Integer.parseInt(txt_tamaño.getText().substring(0,2)+"0");
                     int cantidadsacos = (tamano/20)*Integer.parseInt(txt_batch.getText());
                     txt_cantidadsacos.setText(Integer.toString(cantidadsacos));
                     txt_kilos.setText("20");
@@ -1589,6 +1639,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                             {
                                 preciosaco = new BigDecimal(rs.getString("precio"));
                                 preciosaco = preciosaco.multiply(new BigDecimal(txt_cantidadsacos.getText()));
+                                preciosaco = preciosaco.setScale(4, RoundingMode.HALF_UP);
                                 lblEnsacado.setText(preciosaco.toString());
                             }
                             rs.close();
@@ -1607,6 +1658,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                         {
                             preciosaco = new BigDecimal(rs.getString("precio"));
                             preciosaco = preciosaco.multiply(new BigDecimal(txt_cantidadsacos.getText()));
+                            preciosaco = preciosaco.setScale(4, RoundingMode.HALF_UP);
                             lblEnsacado.setText(preciosaco.toString());
                         }
                         rs.close();
@@ -1620,7 +1672,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             {
                 if(simil == true)
                 {
-                    int tamano = Integer.parseInt(txt_tamaño.getText().substring(0,2));
+                    int tamano = Integer.parseInt(txt_tamaño.getText().substring(0,2)+"0");
                     int cantidadsacos = (tamano/30)*Integer.parseInt(txt_batch.getText());
                     txt_cantidadsacos.setText(Integer.toString(cantidadsacos));
                     txt_kilos.setText("30");
@@ -1634,6 +1686,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                             {
                                 preciosaco = new BigDecimal(rs.getString("precio"));
                                 preciosaco = preciosaco.multiply(new BigDecimal(txt_cantidadsacos.getText()));
+                                preciosaco = preciosaco.setScale(4, RoundingMode.HALF_UP);
                                 lblEnsacado.setText(preciosaco.toString());
                             }
                             rs.close();
@@ -1652,6 +1705,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                         {
                             preciosaco = new BigDecimal(rs.getString("precio"));
                             preciosaco = preciosaco.multiply(new BigDecimal(txt_cantidadsacos.getText()));
+                            preciosaco = preciosaco.setScale(4, RoundingMode.HALF_UP);
                             lblEnsacado.setText(preciosaco.toString());
                         }
                         rs.close();
@@ -1679,6 +1733,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 BigDecimal totalbatch2 = new BigDecimal(tbPrecioBatchExtra.getText()).divide(new BigDecimal(tbTipodeCambio.getText()),scale,roundingMode);
                 //HASTA AQUÍ CAMBIO
                 totalbatch = totalbatch2.multiply(new BigDecimal(txtextra.getText()));
+                totalbatch = totalbatch.setScale(4, RoundingMode.HALF_UP);
                 txttotalbatch.setText(totalbatch.toString());
             }
             int scale = 10;
@@ -1690,6 +1745,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             BigDecimal ensacado = new BigDecimal(lblEnsacado.getText());
             BigDecimal batchprecio =  new BigDecimal(txttotalbatch.getText());
             BigDecimal subtotal = mezclado.add(tarima).add(flete).add(ingredientes).add(ensacado).add(batchprecio);
+            subtotal = subtotal.setScale(4, RoundingMode.HALF_UP);
             lblSubtotal.setText(subtotal.toString());
             BigDecimal parti = BigDecimal.ZERO;
             BigDecimal participa = new BigDecimal(tbParticipacion.getText()).divide(BigDecimal.valueOf(100));
@@ -1707,6 +1763,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             BigDecimal resUtilidadDeseada = ingredientes.divide(utilidadDeseadaDecimal,scale,roundingMode);
             BigDecimal totalUtilidadDeseada = resUtilidadDeseada.subtract(ingredientes);
             BigDecimal utilidadDeseadaDolares = totalUtilidadDeseada.multiply(new BigDecimal(tbTipodeCambio.getText()));
+            utilidadDeseadaDolares = utilidadDeseadaDolares.setScale(4, RoundingMode.HALF_UP);
             tbMezclado.setText(utilidadDeseadaDolares.toString());
             //HASTA AQUÍ
 
@@ -1719,6 +1776,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 parti = new BigDecimal(tbMezclado.getText()).multiply(participa).setScale(4, RoundingMode.HALF_UP);
                 lblParticipacion.setText(parti.toString());
                 totaltotal = parti.add(subtotal);
+                totaltotal = totaltotal.setScale(4, RoundingMode.HALF_UP);
                 lblTotal.setText(totaltotal.toString());
             }
             else if(cbpart3.equals("$"))
@@ -1726,9 +1784,21 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                 parti = new BigDecimal(tbParticipacion.getText()).divide(new BigDecimal(tbTipodeCambio.getText()),scale,roundingMode);
                 lblParticipacion.setText(parti.toString());
                 totaltotal = parti.add(subtotal);
+                totaltotal = totaltotal.setScale(4, RoundingMode.HALF_UP);
                 lblTotal.setText(totaltotal.toString());
             }
             btnguardar.setEnabled(true);
+            
+            clickCount++;
+        
+            // Check if the maximum number of clicks is reached
+            if (clickCount < MAX_CLICKS && flag) {
+                // Simulate a button click
+                btnCalcular.doClick();
+            } else {
+                // Optionally, reset the click count or perform other actions
+                clickCount = 0;
+            }
         }
         else
         {
@@ -1742,6 +1812,18 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
         catch (IllegalArgumentException e) {
             // Print the stack trace to the console
             e.printStackTrace();
+        }
+        
+        /*clickCount++;
+        
+        // Check if the maximum number of clicks is reached
+        if (clickCount < MAX_CLICKS) {
+            // Simulate a button click
+            btnCalcular.doClick();
+        } else {
+            // Optionally, reset the click count or perform other actions
+            clickCount = 0;
+        }*/
         }
     }//GEN-LAST:event_btnCalcularActionPerformed
 
@@ -1776,6 +1858,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                     String descripcion = textBox3.getText();
                     Object vend = cbVendedor.getSelectedItem();
                     String vendedor = vend.toString();
+                    String establo = tbEstablo.getText();
 
                     if (chksuper.isSelected() == true && chkinter.isSelected() == true)
                     {
@@ -1843,7 +1926,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
 
                     try{
                         con = conexion.establecerConexion();
-                        String sql = "INSERT INTO Cotizacion (Id_Etapa, Id_Cliente, Id_Saco, Fecha, Tipo_cambio, Gramos_vaca, Precio_batch, Mezclado, Tarima, Flete, Tipo_part, Participacion, Descripcion, Activo, Id_Vendedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        String sql = "INSERT INTO Cotizacion (Id_Etapa, Id_Cliente, Id_Saco, Fecha, Tipo_cambio, Gramos_vaca, Precio_batch, Mezclado, Tarima, Flete, Tipo_part, Participacion, Descripcion, Activo, Id_Vendedor, Establo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                         PreparedStatement preparedStatement = con.prepareStatement(sql);
                         preparedStatement.setInt(1, idetapa);
                         preparedStatement.setInt(2, idcliente);
@@ -1860,6 +1943,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                         preparedStatement.setString(13, descripcion);
                         preparedStatement.setInt(14, 1);
                         preparedStatement.setInt(15, idvendedor);
+                        preparedStatement.setString(16, establo);
                         preparedStatement.executeUpdate();
                     }catch(SQLException e){
                         JOptionPane.showMessageDialog(null, e.toString());
@@ -1869,7 +1953,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
                     try{
                         for(int i = 0; i < dgvCalculoBatch.getRowCount(); i++)
                         {
-                            Object nparte = modeloTabla3.getValueAt(i, 0);
+                            Object nparte = modeloTabla3.getValueAt(i, 7);
                             String nparteString = nparte.toString();
                             int idnparte = Integer.parseInt(nparteString);
 
@@ -1970,6 +2054,11 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
     private void cbVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbVendedorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbVendedorActionPerformed
+
+    private void tbGramosPVacaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbGramosPVacaFocusGained
+        // TODO add your handling code here:
+        tbGramosPVaca.setText("");
+    }//GEN-LAST:event_tbGramosPVacaFocusGained
 
     private void cargarDatos(){
         
@@ -2075,9 +2164,13 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
             }
         }
         
-        for(int i = 0; i < dgvCalculoBatch.getRowCount(); i++){
+        /*for(int i = 0; i < dgvCalculoBatch.getRowCount(); i++){
             dgvCalculoBatch.setValueAt(i+1, i, 7);
-        }
+        }*/
+    }
+    
+    private void setIcon(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appicon.png")));
     }
     
     public static void main(String args[]) {
@@ -2135,6 +2228,8 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -2183,6 +2278,7 @@ public class NuevaCotizacionFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblSubtotal;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTextField tbBatchExtra;
+    private javax.swing.JTextField tbEstablo;
     private javax.swing.JTextField tbFlete;
     private javax.swing.JTextField tbGramosPVaca;
     private javax.swing.JTextField tbMezclado;
