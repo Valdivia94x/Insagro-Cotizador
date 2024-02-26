@@ -1,3 +1,5 @@
+package com.mycompany.intersisacotizador_ver2;
+
 
 import com.mycompany.intersisacotizador_ver2.Conexion;
 import java.awt.Color;
@@ -79,9 +81,7 @@ public class AccesoFrame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(32767, 32767));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(561, 500));
         setResizable(false);
         setSize(new java.awt.Dimension(450, 300));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

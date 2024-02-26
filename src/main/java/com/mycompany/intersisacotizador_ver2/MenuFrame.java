@@ -1,3 +1,5 @@
+package com.mycompany.intersisacotizador_ver2;
+
 
 import MenuItems.AltaMateriaPrimaFrame;
 import MenuItems.ClientesFrame;
@@ -11,6 +13,7 @@ import MenuItems.VendedoresFrame;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
+import javax.swing.SwingUtilities;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -31,6 +34,7 @@ public class MenuFrame extends javax.swing.JFrame {
     Font fontOut = new Font("Segoe UI", Font.PLAIN, 18);
     
     public MenuFrame() {
+        SwingUtilities.invokeLater(() -> {
         initComponents();
         pack();
         //setSize(1050, 1000);
@@ -39,6 +43,8 @@ public class MenuFrame extends javax.swing.JFrame {
         setLocation(getX(), 5);
         
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appicon.png")));
+        //jMenuBar1 = new javax.swing.JMenuBar();
+        });
     }
 
     /**
@@ -78,7 +84,6 @@ public class MenuFrame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1070, 700));
 
         jPanelContent.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -103,7 +108,7 @@ public class MenuFrame extends javax.swing.JFrame {
         );
 
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenuBar1.setMargin(new java.awt.Insets(0, 88, 0, 0));
+        jMenuBar1.setMargin(new java.awt.Insets(0, 80, 0, 0));
         jMenuBar1.setPreferredSize(new java.awt.Dimension(398, 45));
 
         jMenuCotizaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cotizaciones.png"))); // NOI18N
@@ -499,6 +504,8 @@ public class MenuFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuFrame().setVisible(true);
+                /*MenuFrame mf = new MenuFrame();
+                mf.setVisible(true);*/
             }
         });
     }

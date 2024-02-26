@@ -4,10 +4,12 @@
 
 package com.mycompany.intersisacotizador_ver2;
 
+import com.mycompany.intersisacotizador_ver2.MenuFrame;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -16,9 +18,13 @@ import java.sql.Statement;
 public class Main {
     
     public static void main(String[] args) {
-        Conexion objetoConexion = new Conexion();
-        objetoConexion.establecerConexion();
-        /*AccesoFrame af = new AccesoFrame();
-        af.setVisible(true);*/
+        //Conexion objetoConexion = new Conexion();
+        //objetoConexion.establecerConexion();
+        SwingUtilities.invokeLater(() -> {
+            /*AccesoFrame af = new AccesoFrame();
+            af.setVisible(true);*/
+            MenuFrame mf = new MenuFrame();
+            mf.setVisible(true);
+            });
     }
 }
