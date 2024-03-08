@@ -35,7 +35,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.mycompany.intersisacotizador_ver2.Main</mainClass>
+                            <mainClass>com.mycompany.intersisacotizador_ver2.AccesoFrame</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

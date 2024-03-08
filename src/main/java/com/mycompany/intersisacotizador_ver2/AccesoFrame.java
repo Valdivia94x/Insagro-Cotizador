@@ -34,6 +34,7 @@ public class AccesoFrame extends javax.swing.JFrame {
     
     private static Connection conn;
     private static Conexion conexionn;
+    public static String nombreUsuario;
     
     public AccesoFrame() {
         initComponents();
@@ -224,7 +225,7 @@ public class AccesoFrame extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        setSize(new java.awt.Dimension(561, 400));
+        setSize(new java.awt.Dimension(561, 365));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -276,6 +277,7 @@ public class AccesoFrame extends javax.swing.JFrame {
                     // Successful login
                     MenuFrame mf = new MenuFrame();
                     mf.setVisible(true);
+                    nombreUsuario = txtUsuario.getText();
                     dispose(); // Close the current frame
                 } else {
                     // Incorrect login

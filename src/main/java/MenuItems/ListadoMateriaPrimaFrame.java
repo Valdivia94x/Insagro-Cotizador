@@ -64,22 +64,23 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1057, 477));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Listado Materia Prima");
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI Light", 0, 10)); // NOI18N
         jLabel4.setText("Materia Prima");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI Light", 0, 10)); // NOI18N
         jLabel5.setText("Nombre:");
 
-        txtNombre.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txtNombre.setFont(new java.awt.Font("Segoe UI Light", 0, 10)); // NOI18N
         txtNombre.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -89,7 +90,7 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(rbActivas);
-        rbActivas.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        rbActivas.setFont(new java.awt.Font("Segoe UI Light", 0, 10)); // NOI18N
         rbActivas.setSelected(true);
         rbActivas.setText("ACTIVAS");
         rbActivas.addItemListener(new java.awt.event.ItemListener() {
@@ -99,7 +100,7 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(rbInactivas);
-        rbInactivas.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        rbInactivas.setFont(new java.awt.Font("Segoe UI Light", 0, 10)); // NOI18N
         rbInactivas.setForeground(new java.awt.Color(204, 0, 0));
         rbInactivas.setText("INACTIVAS");
         rbInactivas.addItemListener(new java.awt.event.ItemListener() {
@@ -108,7 +109,7 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
             }
         });
 
-        btnFiltrar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnFiltrar.setFont(new java.awt.Font("Segoe UI Light", 0, 10)); // NOI18N
         btnFiltrar.setText("Filtrar");
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +117,7 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
             }
         });
 
-        btnModificar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnModificar.setFont(new java.awt.Font("Segoe UI Light", 0, 10)); // NOI18N
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,14 +142,14 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnFiltrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
                 .addComponent(btnModificar)
                 .addGap(28, 28, 28))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
@@ -157,9 +158,10 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
                     .addComponent(rbInactivas)
                     .addComponent(btnFiltrar)
                     .addComponent(btnModificar))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        dgvprecios.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         dgvprecios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -178,7 +180,7 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(dgvprecios);
 
-        btnActivar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnActivar.setFont(new java.awt.Font("Segoe UI Light", 0, 10)); // NOI18N
         btnActivar.setText("Reactivar");
         btnActivar.setEnabled(false);
         btnActivar.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +189,7 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
             }
         });
 
-        btnInactivar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        btnInactivar.setFont(new java.awt.Font("Segoe UI Light", 0, 10)); // NOI18N
         btnInactivar.setText("Inactivar");
         btnInactivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,7 +209,7 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(150, 150, 150)
+                        .addGap(315, 315, 315)
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -225,15 +227,15 @@ public class ListadoMateriaPrimaFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnActivar)
                     .addComponent(btnInactivar))
-                .addGap(24, 24, 24))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

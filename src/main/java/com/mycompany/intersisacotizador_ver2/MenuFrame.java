@@ -40,7 +40,7 @@ public class MenuFrame extends javax.swing.JFrame {
         //setSize(1050, 1000);
         setResizable(false);
         setLocationRelativeTo(null);
-        setLocation(getX(), 5);
+        setLocation(getX(), 0);
         
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/appicon.png")));
         //jMenuBar1 = new javax.swing.JMenuBar();
@@ -103,7 +103,7 @@ public class MenuFrame extends javax.swing.JFrame {
             jPanelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelContentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 674, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -284,10 +284,10 @@ public class MenuFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(0, 100, 1086, 739);
+        setBounds(0, 100, 1086, 547);
     }// </editor-fold>//GEN-END:initComponents
 
     
